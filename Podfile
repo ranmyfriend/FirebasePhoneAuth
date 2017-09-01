@@ -10,8 +10,5 @@ target 'FirebasePhone' do
 pod 'Firebase/Auth'
 pod 'Firebase/Core'
 pod 'SwiftyJSON'
-pod 'RxSwift'
-pod 'RxCocoa'
-
 
 end

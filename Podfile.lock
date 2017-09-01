@@ -35,16 +35,11 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
-  - RxCocoa (3.6.1):
-    - RxSwift (~> 3.6)
-  - RxSwift (3.6.1)
   - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Core
-  - RxCocoa
-  - RxSwift
   - SwiftyJSON
 
 SPEC CHECKSUMS:
@@ -56,10 +51,8 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMSessionFetcher: 5ad62e8200fa00ed011fe5e08d27fef72c5b1429
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
-  RxCocoa: 84a08739ab186248c7f31ce4ee92d6f8a947d690
-  RxSwift: f9de85ea20cd2f7716ee5409fc13523dc638e4e4
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: edf15be1ed2f10825c51507a875fa100befab0b9
+PODFILE CHECKSUM: 302f5846e4af48055f4338e8935e4335ae0c4577
 
 COCOAPODS: 1.2.1
