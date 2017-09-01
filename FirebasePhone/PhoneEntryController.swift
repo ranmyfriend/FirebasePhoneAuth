@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  PhoneEntryController.swift
 //  FirebasePhone
 //
 //  Created by Ranjith Kumar on 8/28/17.
@@ -9,16 +9,16 @@
 import UIKit
 import Firebase
 
-class ViewController: UIViewController,countryPickerProtocol {
-
+class PhoneEntryController: UIViewController,countryPickerProtocol {
+    
     @IBOutlet weak var phoneTextField: UITextField!
     @IBOutlet weak var countryCodeTextField: UITextField!
-    var verificationID:String?
     var countries:Countries = Countries()
     var localeCountry:Country?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Entry Scene"
         countries.loadCountries()
         addLocaleCountryCode()
     }
@@ -30,9 +30,9 @@ class ViewController: UIViewController,countryPickerProtocol {
             countryCodeTextField.text = (localeCountry?.iso2Cc!)! + " " + "(+" + (localeCountry?.e164Cc!)! + ")"
         }
     }
-
+    
     //MARK: - Button Actions
-    @IBAction func didTapCall(_ sender: Any) {
+    @IBAction func didTapSendCode(_ sender: Any) {
         let phoneNumber = "+" + (localeCountry?.e164Cc!)! + phoneTextField.text!
         PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber) { (verificationID, error) in
             if let error = error {
@@ -40,21 +40,9 @@ class ViewController: UIViewController,countryPickerProtocol {
                 return
             }
             guard let verificationID = verificationID else { return }
-            self.verificationID = verificationID
-        }
-    }
-
-    @IBAction func didTapAuth(_ sender: Any) {
-        if let verificationCode = phoneTextField.text {
-            let credential = PhoneAuthProvider.provider().credential(withVerificationID: verificationID!, verificationCode: verificationCode)
-            Auth.auth().signIn(with: credential) { (user, error) in
-                if let error = error {
-                    print(error.localizedDescription)
-                    return
-                }else {
-                    debugPrint("Authenticated successfully")
-                }
-            }   
+            let verifyScene = PhoneVerificationController()
+            verifyScene.verificationID = verificationID
+            self.navigationController?.pushViewController(verifyScene, animated: true)
         }
     }
     

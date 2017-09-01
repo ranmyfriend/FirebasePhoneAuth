@@ -16,7 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         //Firebase
         if #available(iOS 10.0, *) {
@@ -35,6 +34,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         application.registerForRemoteNotifications()
         FirebaseApp.configure()
         
+        let nc = UINavigationController(rootViewController: PhoneEntryController())
+        self.window = UIWindow.init(frame: UIScreen.main.bounds)
+        self.window?.rootViewController = nc
+        self.window?.makeKeyAndVisible()
         return true
     }
     
