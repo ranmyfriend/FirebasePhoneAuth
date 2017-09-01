@@ -12,13 +12,7 @@ class Countries {
     var sections:[String] = []
     var list:[Country] = []
     var metaData:[String:[Country]] = [:]
-    init() {}
-    convenience init(list:[Country]) {
-        self.init()
-        self.list = list
-    }
-    public func loadCountries(){
-        let countries = JSONReader.countries()
+    public func load(countries:[Country]){
         countries.forEach({ (country) in
             if let firstChar = country.name?.characters.first?.description {
                 if metaData[firstChar] == nil {

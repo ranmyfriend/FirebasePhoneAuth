@@ -12,14 +12,21 @@ import Firebase
 class PhoneEntryController: UIViewController,countryPickerProtocol {
     
     @IBOutlet weak var phoneTextField: UITextField!
-    @IBOutlet weak var countryCodeTextField: UITextField!
+    @IBOutlet weak var countryCodeTextField: UITextField! {
+        didSet {
+            countryCodeTextField.textColor = UIColor.brown
+            countryCodeTextField.layer.borderWidth = 1.5
+            countryCodeTextField.layer.borderColor = UIColor.brown.cgColor
+            countryCodeTextField.layer.cornerRadius = 3.0
+        }
+    }
     var countries:Countries = Countries()
     var localeCountry:Country?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Entry Scene"
-        countries.loadCountries()
+        countries.load(countries: JSONReader.countries())
         addLocaleCountryCode()
     }
     

@@ -49,7 +49,7 @@ extension CountryCodeListController:UITableViewDelegate,UITableViewDataSource,UI
         if searchBar.isEmpty() {
             sections = countries?.sections.count ?? 0
         }else {
-            sections = countries?.sections.count ?? 0
+            sections = filteredCountries?.sections.count ?? 0
         }
         if sections == 0 {
             let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: countryListTableView.bounds.size.width, height: countryListTableView.bounds.size.height))
@@ -134,7 +134,8 @@ extension CountryCodeListController:UITableViewDelegate,UITableViewDataSource,UI
             countryListTableView.reloadData()
         }else {
             let list = countries?.list.filter { ($0.name?.hasPrefix(searchText))! || ($0.iso2Cc?.hasPrefix(searchText))! || ($0.e164Cc?.hasPrefix(searchText))!}
-            filteredCountries = Countries.init(list: list!)
+            filteredCountries = Countries()
+            filteredCountries?.load(countries: list!)
             countryListTableView.reloadData()
         }
     }
