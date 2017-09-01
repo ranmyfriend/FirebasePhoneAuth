@@ -7,14 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		072F34ED1F59476B00B1EC29 /* FPCountryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F34EC1F59476A00B1EC29 /* FPCountryModel.swift */; };
+		074DE6641F55762A0046DE32 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 074DE6631F55762A0046DE32 /* GoogleService-Info.plist */; };
+		074DE6661F5590940046DE32 /* country-codes.json in Resources */ = {isa = PBXBuildFile; fileRef = 074DE6651F5590940046DE32 /* country-codes.json */; };
+		07BB4A0A1F57D74100105789 /* CountryCodeSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BB4A081F57D74100105789 /* CountryCodeSelectionViewController.swift */; };
+		07BB4A0B1F57D74100105789 /* CountryCodeSelectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07BB4A091F57D74100105789 /* CountryCodeSelectionViewController.xib */; };
+		07BB4A0E1F57D86D00105789 /* CountrySelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BB4A0C1F57D86D00105789 /* CountrySelectionTableViewCell.swift */; };
+		07BB4A0F1F57D86D00105789 /* CountrySelectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07BB4A0D1F57D86D00105789 /* CountrySelectionTableViewCell.xib */; };
+		07BB4A131F57DB5100105789 /* CountryCodeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BB4A121F57DB5100105789 /* CountryCodeHelper.swift */; };
 		07EE6D381F54454D00783EE6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EE6D371F54454D00783EE6 /* AppDelegate.swift */; };
 		07EE6D3A1F54454D00783EE6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EE6D391F54454D00783EE6 /* ViewController.swift */; };
 		07EE6D3D1F54454D00783EE6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07EE6D3B1F54454D00783EE6 /* Main.storyboard */; };
 		07EE6D3F1F54454D00783EE6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07EE6D3E1F54454D00783EE6 /* Assets.xcassets */; };
 		07EE6D421F54454D00783EE6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07EE6D401F54454D00783EE6 /* LaunchScreen.storyboard */; };
+		44098AB7FC56BFE3576D1934 /* Pods_FirebasePhone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 671750C35C6948FC23CEDBDD /* Pods_FirebasePhone.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		072F34EB1F59464900B1EC29 /* FirebasePhone.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = FirebasePhone.entitlements; sourceTree = "<group>"; };
+		072F34EC1F59476A00B1EC29 /* FPCountryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FPCountryModel.swift; sourceTree = "<group>"; };
+		074DE6631F55762A0046DE32 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		074DE6651F5590940046DE32 /* country-codes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "country-codes.json"; sourceTree = "<group>"; };
+		07BB4A081F57D74100105789 /* CountryCodeSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryCodeSelectionViewController.swift; sourceTree = "<group>"; };
+		07BB4A091F57D74100105789 /* CountryCodeSelectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CountryCodeSelectionViewController.xib; sourceTree = "<group>"; };
+		07BB4A0C1F57D86D00105789 /* CountrySelectionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountrySelectionTableViewCell.swift; sourceTree = "<group>"; };
+		07BB4A0D1F57D86D00105789 /* CountrySelectionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CountrySelectionTableViewCell.xib; sourceTree = "<group>"; };
+		07BB4A121F57DB5100105789 /* CountryCodeHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryCodeHelper.swift; sourceTree = "<group>"; };
 		07EE6D341F54454D00783EE6 /* FirebasePhone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FirebasePhone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07EE6D371F54454D00783EE6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		07EE6D391F54454D00783EE6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +40,9 @@
 		07EE6D3E1F54454D00783EE6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		07EE6D411F54454D00783EE6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		07EE6D431F54454D00783EE6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		671750C35C6948FC23CEDBDD /* Pods_FirebasePhone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FirebasePhone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A94C230CB451F2B7EAB03F0 /* Pods-FirebasePhone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FirebasePhone.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FirebasePhone/Pods-FirebasePhone.debug.xcconfig"; sourceTree = "<group>"; };
+		FD123F95C2AC2FD93E719BF4 /* Pods-FirebasePhone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FirebasePhone.release.xcconfig"; path = "Pods/Target Support Files/Pods-FirebasePhone/Pods-FirebasePhone.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44098AB7FC56BFE3576D1934 /* Pods_FirebasePhone.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -38,8 +60,12 @@
 		07EE6D2B1F54454D00783EE6 = {
 			isa = PBXGroup;
 			children = (
+				074DE6651F5590940046DE32 /* country-codes.json */,
+				074DE6631F55762A0046DE32 /* GoogleService-Info.plist */,
 				07EE6D361F54454D00783EE6 /* FirebasePhone */,
 				07EE6D351F54454D00783EE6 /* Products */,
+				143E879331B6BE3EF3743E49 /* Pods */,
+				5DE6A74AB60BD809D49E2ABF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,14 +80,38 @@
 		07EE6D361F54454D00783EE6 /* FirebasePhone */ = {
 			isa = PBXGroup;
 			children = (
+				072F34EB1F59464900B1EC29 /* FirebasePhone.entitlements */,
+				072F34EC1F59476A00B1EC29 /* FPCountryModel.swift */,
+				07BB4A121F57DB5100105789 /* CountryCodeHelper.swift */,
 				07EE6D371F54454D00783EE6 /* AppDelegate.swift */,
 				07EE6D391F54454D00783EE6 /* ViewController.swift */,
 				07EE6D3B1F54454D00783EE6 /* Main.storyboard */,
+				07BB4A081F57D74100105789 /* CountryCodeSelectionViewController.swift */,
+				07BB4A091F57D74100105789 /* CountryCodeSelectionViewController.xib */,
+				07BB4A0C1F57D86D00105789 /* CountrySelectionTableViewCell.swift */,
+				07BB4A0D1F57D86D00105789 /* CountrySelectionTableViewCell.xib */,
 				07EE6D3E1F54454D00783EE6 /* Assets.xcassets */,
 				07EE6D401F54454D00783EE6 /* LaunchScreen.storyboard */,
 				07EE6D431F54454D00783EE6 /* Info.plist */,
 			);
 			path = FirebasePhone;
+			sourceTree = "<group>";
+		};
+		143E879331B6BE3EF3743E49 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6A94C230CB451F2B7EAB03F0 /* Pods-FirebasePhone.debug.xcconfig */,
+				FD123F95C2AC2FD93E719BF4 /* Pods-FirebasePhone.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		5DE6A74AB60BD809D49E2ABF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				671750C35C6948FC23CEDBDD /* Pods_FirebasePhone.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +121,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 07EE6D461F54454D00783EE6 /* Build configuration list for PBXNativeTarget "FirebasePhone" */;
 			buildPhases = (
+				51D2D4284C332BD070D4CEE7 /* [CP] Check Pods Manifest.lock */,
 				07EE6D301F54454D00783EE6 /* Sources */,
 				07EE6D311F54454D00783EE6 /* Frameworks */,
 				07EE6D321F54454D00783EE6 /* Resources */,
+				1C41EAA0D7559F5E040541FB /* [CP] Embed Pods Frameworks */,
+				C83D7CF45EB6A907A6F621BC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -96,8 +149,16 @@
 				TargetAttributes = {
 					07EE6D331F54454D00783EE6 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 35P9S7STBV;
+						DevelopmentTeam = PJEK78SY7H;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -124,7 +185,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07BB4A0F1F57D86D00105789 /* CountrySelectionTableViewCell.xib in Resources */,
 				07EE6D421F54454D00783EE6 /* LaunchScreen.storyboard in Resources */,
+				074DE6661F5590940046DE32 /* country-codes.json in Resources */,
+				074DE6641F55762A0046DE32 /* GoogleService-Info.plist in Resources */,
+				07BB4A0B1F57D74100105789 /* CountryCodeSelectionViewController.xib in Resources */,
 				07EE6D3F1F54454D00783EE6 /* Assets.xcassets in Resources */,
 				07EE6D3D1F54454D00783EE6 /* Main.storyboard in Resources */,
 			);
@@ -132,13 +197,65 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1C41EAA0D7559F5E040541FB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FirebasePhone/Pods-FirebasePhone-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		51D2D4284C332BD070D4CEE7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C83D7CF45EB6A907A6F621BC /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FirebasePhone/Pods-FirebasePhone-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		07EE6D301F54454D00783EE6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				072F34ED1F59476B00B1EC29 /* FPCountryModel.swift in Sources */,
 				07EE6D3A1F54454D00783EE6 /* ViewController.swift in Sources */,
 				07EE6D381F54454D00783EE6 /* AppDelegate.swift in Sources */,
+				07BB4A0A1F57D74100105789 /* CountryCodeSelectionViewController.swift in Sources */,
+				07BB4A131F57DB5100105789 /* CountryCodeHelper.swift in Sources */,
+				07BB4A0E1F57D86D00105789 /* CountrySelectionTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,26 +376,35 @@
 		};
 		07EE6D471F54454D00783EE6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6A94C230CB451F2B7EAB03F0 /* Pods-FirebasePhone.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 35P9S7STBV;
+				CODE_SIGN_ENTITLEMENTS = FirebasePhone/FirebasePhone.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = PJEK78SY7H;
 				INFOPLIST_FILE = FirebasePhone/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ranjith.FirebasePhone;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ranjith.firebaseauth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		07EE6D481F54454D00783EE6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FD123F95C2AC2FD93E719BF4 /* Pods-FirebasePhone.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 35P9S7STBV;
+				CODE_SIGN_ENTITLEMENTS = FirebasePhone/FirebasePhone.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = PJEK78SY7H;
 				INFOPLIST_FILE = FirebasePhone/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ranjith.FirebasePhone;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ranjith.firebaseauth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -302,6 +428,7 @@
 				07EE6D481F54454D00783EE6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

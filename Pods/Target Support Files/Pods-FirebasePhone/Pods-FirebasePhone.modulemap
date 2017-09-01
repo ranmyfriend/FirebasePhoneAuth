@@ -1,0 +1,6 @@
+framework module Pods_FirebasePhone {
+  umbrella header "Pods-FirebasePhone-umbrella.h"
+
+  export *
+  module * { export * }
+}
