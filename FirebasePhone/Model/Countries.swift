@@ -12,7 +12,9 @@ class Countries {
     var sections:[String] = []
     var list:[Country] = []
     var metaData:[String:[Country]] = [:]
-    public func load(countries:[Country]){
+    
+    convenience init(countries:[Country]) {
+        self.init()
         countries.forEach({ (country) in
             if let firstChar = country.name?.characters.first?.description {
                 if metaData[firstChar] == nil {

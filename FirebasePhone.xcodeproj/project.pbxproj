@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		073DBEB61F90D13C001C3AC1 /* View+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073DBEB51F90D13C001C3AC1 /* View+Additions.swift */; };
 		074DE6641F55762A0046DE32 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 074DE6631F55762A0046DE32 /* GoogleService-Info.plist */; };
 		074DE6661F5590940046DE32 /* country-codes.json in Resources */ = {isa = PBXBuildFile; fileRef = 074DE6651F5590940046DE32 /* country-codes.json */; };
 		076363221F5A000300596E62 /* CountryCodeListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0763631E1F5A000300596E62 /* CountryCodeListController.swift */; };
@@ -28,6 +29,7 @@
 
 /* Begin PBXFileReference section */
 		072F34EB1F59464900B1EC29 /* FirebasePhone.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = FirebasePhone.entitlements; sourceTree = "<group>"; };
+		073DBEB51F90D13C001C3AC1 /* View+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "View+Additions.swift"; path = "Extension/View+Additions.swift"; sourceTree = "<group>"; };
 		074DE6631F55762A0046DE32 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		074DE6651F5590940046DE32 /* country-codes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "country-codes.json"; sourceTree = "<group>"; };
 		0763631E1F5A000300596E62 /* CountryCodeListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CountryCodeListController.swift; path = CountryList/CountryCodeListController.swift; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				076363261F5A000B00596E62 /* JSONReader.swift */,
+				073DBEB51F90D13C001C3AC1 /* View+Additions.swift */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 				076363271F5A000B00596E62 /* JSONReader.swift in Sources */,
 				07EE6D381F54454D00783EE6 /* AppDelegate.swift in Sources */,
 				076363221F5A000300596E62 /* CountryCodeListController.swift in Sources */,
+				073DBEB61F90D13C001C3AC1 /* View+Additions.swift in Sources */,
 				0763632A1F5A001500596E62 /* Countries.swift in Sources */,
 				076363241F5A000300596E62 /* CountryCodeListCell.swift in Sources */,
 				0763632E1F5A1E6C00596E62 /* PhoneVerificationController.swift in Sources */,

@@ -14,7 +14,8 @@ class PhoneVerificationController: UIViewController {
     var verificationID:String?
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Enter your 6 digit code"
+        title = "Enter your 6 digit code"
+        view.addTapToDismissKeyboard()
     }
    
     @IBAction func didTapVerifyFourDigitCode(_ sender: Any) {
@@ -29,6 +30,8 @@ class PhoneVerificationController: UIViewController {
                     try? Auth.auth().signOut()
                 }
             }
+        }else {
+            debugPrint("Enter your verification code!")
         }
     }
     

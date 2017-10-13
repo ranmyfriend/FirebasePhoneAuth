@@ -14,20 +14,22 @@ class PhoneEntryController: UIViewController,countryPickerProtocol {
     @IBOutlet weak var phoneTextField: UITextField!
     @IBOutlet weak var countryCodeTextField: UITextField! {
         didSet {
-            countryCodeTextField.textColor = UIColor.brown
+            countryCodeTextField.textColor = UIView().tintColor
             countryCodeTextField.layer.borderWidth = 1.5
-            countryCodeTextField.layer.borderColor = UIColor.brown.cgColor
+            countryCodeTextField.layer.borderColor = countryCodeTextField.textColor?.cgColor
             countryCodeTextField.layer.cornerRadius = 3.0
+            addLocaleCountryCode()
         }
     }
-    var countries:Countries = Countries()
+    let countries:Countries = {
+        return Countries.init(countries: JSONReader.countries())
+    }()
     var localeCountry:Country?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Entry Scene"
-        countries.load(countries: JSONReader.countries())
-        addLocaleCountryCode()
+        title = "Entry Scene"
+        view.addTapToDismissKeyboard()
     }
     
     //MARK: - Private Functions
@@ -40,6 +42,10 @@ class PhoneEntryController: UIViewController,countryPickerProtocol {
     
     //MARK: - Button Actions
     @IBAction func didTapSendCode(_ sender: Any) {
+        if phoneTextField.text?.characters.count == 0 {
+            debugPrint("Enter Phone number!")
+            return
+        }
         let phoneNumber = "+" + (localeCountry?.e164Cc!)! + phoneTextField.text!
         PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber) { (verificationID, error) in
             if let error = error {
@@ -57,12 +63,13 @@ class PhoneEntryController: UIViewController,countryPickerProtocol {
         let listScene = CountryCodeListController()
         listScene.delegate = self
         listScene.countries = countries
-        self.navigationController?.pushViewController(listScene, animated: true)
+        navigationController?.pushViewController(listScene, animated: true)
     }
     
     //MARK: - countryPickerProtocol functions
     func didPickCountry(model: Country) {
-        self.countryCodeTextField.text = model.iso2Cc! + " " + "(+" + model.e164Cc! + ")"
+        localeCountry = model
+        countryCodeTextField.text = model.iso2Cc! + " " + "(+" + model.e164Cc! + ")"
     }
     
 }

@@ -37,9 +37,8 @@ class CountryCodeListController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "SELECT A COUNTRY"
+        title = "SELECT A COUNTRY"
     }
-    
 }
 
 extension CountryCodeListController:UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate {
@@ -134,8 +133,7 @@ extension CountryCodeListController:UITableViewDelegate,UITableViewDataSource,UI
             countryListTableView.reloadData()
         }else {
             let list = countries?.list.filter { ($0.name?.hasPrefix(searchText))! || ($0.iso2Cc?.hasPrefix(searchText))! || ($0.e164Cc?.hasPrefix(searchText))!}
-            filteredCountries = Countries()
-            filteredCountries?.load(countries: list!)
+            filteredCountries = Countries.init(countries: list!)
             countryListTableView.reloadData()
         }
     }
