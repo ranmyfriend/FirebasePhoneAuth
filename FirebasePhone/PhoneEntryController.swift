@@ -11,6 +11,11 @@ import Firebase
 
 class PhoneEntryController: UIViewController,countryPickerProtocol {
     
+    @IBOutlet weak var sendCodeButton: UIButton!{
+        didSet {
+            sendCodeButton.applyBorderProperties()
+        }
+    }
     @IBOutlet weak var phoneTextField: UITextField!
     @IBOutlet weak var countryCodeTextField: UITextField! {
         didSet {
@@ -28,8 +33,22 @@ class PhoneEntryController: UIViewController,countryPickerProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Entry Scene"
+        navigationItem.titleView = titleView()
         view.addTapToDismissKeyboard()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        phoneTextField.becomeFirstResponder()
+    }
+    
+    private func titleView()->UILabel {
+        let label = UILabel()
+        label.text = "Entry Scene\n(Watch debug console for the Errors)"
+        label.numberOfLines = 2
+        label.textAlignment = .center
+        label.textColor = UIColor.red
+        label.sizeToFit()
+        return label
     }
     
     //MARK: - Private Functions
@@ -46,6 +65,7 @@ class PhoneEntryController: UIViewController,countryPickerProtocol {
             debugPrint("Enter Phone number!")
             return
         }
+        view.endEditing(true)
         let phoneNumber = "+" + (localeCountry?.e164Cc!)! + phoneTextField.text!
         PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber) { (verificationID, error) in
             if let error = error {
@@ -72,4 +92,12 @@ class PhoneEntryController: UIViewController,countryPickerProtocol {
         countryCodeTextField.text = model.iso2Cc! + " " + "(+" + model.e164Cc! + ")"
     }
     
+}
+
+extension UIButton {
+    func applyBorderProperties() {
+        layer.borderWidth = 1.5
+        layer.borderColor = tintColor?.cgColor
+        layer.cornerRadius = 3.0
+    }
 }

@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue-Medium</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PhoneEntryController" customModule="FirebasePhone" customModuleProvider="target">
             <connections>
                 <outlet property="countryCodeTextField" destination="0lX-vw-eKs" id="27Q-BH-r84"/>
                 <outlet property="phoneTextField" destination="wdt-Gu-nDU" id="YUU-KK-phx"/>
+                <outlet property="sendCodeButton" destination="qVg-IC-FC1" id="R3r-eM-fxw"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -23,13 +29,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="fUb-ai-4Ow">
-                    <rect key="frame" x="0.0" y="233.5" width="375" height="200"/>
+                    <rect key="frame" x="20" y="248.5" width="335" height="170"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hOW-N5-rNl">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+                            <rect key="frame" x="0.0" y="0.0" width="335" height="125"/>
                             <subviews>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="US (+1)" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0lX-vw-eKs">
-                                    <rect key="frame" x="20" y="55" width="94.5" height="40"/>
+                                    <rect key="frame" x="0.0" y="42.5" width="78.5" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="vHl-R0-FbJ"/>
                                     </constraints>
@@ -38,13 +44,13 @@
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JRr-de-uGn">
-                                    <rect key="frame" x="20" y="55" width="94.5" height="40"/>
+                                    <rect key="frame" x="0.0" y="42.5" width="78.5" height="40"/>
                                     <connections>
                                         <action selector="didTapShowCountryCode:" destination="-1" eventType="touchUpInside" id="mo3-Wx-12e"/>
                                     </connections>
                                 </button>
-                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Mobile Number" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wdt-Gu-nDU">
-                                    <rect key="frame" x="130.5" y="55" width="224.5" height="40"/>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Mobile Number" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="wdt-Gu-nDU">
+                                    <rect key="frame" x="98.5" y="42.5" width="236.5" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="ext-VY-Kco"/>
                                     </constraints>
@@ -53,14 +59,13 @@
                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                 </textField>
                             </subviews>
-                            <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
-                                <constraint firstItem="JRr-de-uGn" firstAttribute="leading" secondItem="hOW-N5-rNl" secondAttribute="leading" constant="20" id="5c7-93-Lx9"/>
-                                <constraint firstItem="wdt-Gu-nDU" firstAttribute="width" secondItem="hOW-N5-rNl" secondAttribute="width" multiplier="0.6" id="G6B-n8-3PY"/>
+                                <constraint firstItem="JRr-de-uGn" firstAttribute="leading" secondItem="hOW-N5-rNl" secondAttribute="leading" id="5c7-93-Lx9"/>
                                 <constraint firstItem="0lX-vw-eKs" firstAttribute="centerY" secondItem="hOW-N5-rNl" secondAttribute="centerY" id="MXJ-3Y-yKo"/>
-                                <constraint firstAttribute="trailing" secondItem="wdt-Gu-nDU" secondAttribute="trailing" constant="20" id="dKj-V5-0Q9"/>
-                                <constraint firstItem="0lX-vw-eKs" firstAttribute="leading" secondItem="hOW-N5-rNl" secondAttribute="leading" constant="20" id="fYj-px-FSC"/>
-                                <constraint firstItem="0lX-vw-eKs" firstAttribute="width" secondItem="hOW-N5-rNl" secondAttribute="width" multiplier="0.25" id="hYx-rb-QIF"/>
+                                <constraint firstItem="wdt-Gu-nDU" firstAttribute="leading" secondItem="JRr-de-uGn" secondAttribute="trailing" constant="20" id="S21-Kz-FCy"/>
+                                <constraint firstAttribute="trailing" secondItem="wdt-Gu-nDU" secondAttribute="trailing" id="dKj-V5-0Q9"/>
+                                <constraint firstItem="0lX-vw-eKs" firstAttribute="leading" secondItem="hOW-N5-rNl" secondAttribute="leading" id="fYj-px-FSC"/>
+                                <constraint firstItem="0lX-vw-eKs" firstAttribute="width" secondItem="hOW-N5-rNl" secondAttribute="width" multiplier="0.25" priority="250" id="hYx-rb-QIF"/>
                                 <constraint firstItem="JRr-de-uGn" firstAttribute="width" secondItem="0lX-vw-eKs" secondAttribute="width" id="ilL-UY-lMQ"/>
                                 <constraint firstItem="JRr-de-uGn" firstAttribute="centerY" secondItem="hOW-N5-rNl" secondAttribute="centerY" id="meP-if-3cP"/>
                                 <constraint firstItem="wdt-Gu-nDU" firstAttribute="centerY" secondItem="hOW-N5-rNl" secondAttribute="centerY" id="n8o-H6-DxT"/>
@@ -68,13 +73,11 @@
                             </constraints>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qVg-IC-FC1">
-                            <rect key="frame" x="0.0" y="150" width="375" height="50"/>
-                            <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <rect key="frame" x="0.0" y="125" width="335" height="45"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="50" id="Z81-74-UOH"/>
+                                <constraint firstAttribute="height" constant="45" id="Z81-74-UOH"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
-                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <state key="normal" title="Send Code"/>
                             <connections>
                                 <action selector="didTapSendCode:" destination="-1" eventType="touchUpInside" id="d1M-af-J2f"/>
@@ -82,15 +85,15 @@
                         </button>
                     </subviews>
                     <constraints>
-                        <constraint firstAttribute="height" constant="200" id="tCC-oF-Acm"/>
+                        <constraint firstAttribute="height" constant="170" id="tCC-oF-Acm"/>
                     </constraints>
                 </stackView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="fUb-ai-4Ow" secondAttribute="trailing" id="FUg-uH-Hnl"/>
+                <constraint firstAttribute="trailing" secondItem="fUb-ai-4Ow" secondAttribute="trailing" constant="20" id="FUg-uH-Hnl"/>
                 <constraint firstItem="fUb-ai-4Ow" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="Gtx-dh-cVc"/>
-                <constraint firstItem="fUb-ai-4Ow" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="JJa-H2-3B8"/>
+                <constraint firstItem="fUb-ai-4Ow" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="JJa-H2-3B8"/>
                 <constraint firstItem="fUb-ai-4Ow" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="o82-kg-dTe"/>
             </constraints>
         </view>
