@@ -66,7 +66,7 @@ public struct Country {
     example = json[kCountryExampleKey].string
     displayNameNoE164Cc = json[kCountryDisplayNameNoE164CcKey].string
     fullExampleWithPlusSign = json[kCountryFullExampleWithPlusSignKey].string
-    flag = iso2Cc?.unicodeScalars.flatMap { String.init(UnicodeScalar(baseScalar + $0.value)!) }.joined()
+    flag = iso2Cc?.unicodeScalars.compactMap { String.init(UnicodeScalar(baseScalar + $0.value)!) }.joined()
   }
 
   /**

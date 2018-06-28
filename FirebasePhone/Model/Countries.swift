@@ -16,7 +16,7 @@ class Countries {
     convenience init(countries:[Country]) {
         self.init()
         countries.forEach({ (country) in
-            if let firstChar = country.name?.characters.first?.description {
+            if let firstChar = country.name?.first?.description {
                 if metaData[firstChar] == nil {
                     metaData[firstChar] = [country]
                 }else {

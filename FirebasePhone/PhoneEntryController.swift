@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class PhoneEntryController: UIViewController,countryPickerProtocol {
+class PhoneEntryController: UIViewController {
     
     @IBOutlet weak var sendCodeButton: UIButton!{
         didSet {
@@ -35,13 +35,24 @@ class PhoneEntryController: UIViewController,countryPickerProtocol {
         super.viewDidLoad()
         navigationItem.titleView = titleView()
         view.addTapToDismissKeyboard()
+        phoneTextField.text = "9704963170"
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         phoneTextField.becomeFirstResponder()
+        addAdditionalNavigationItemChanges()
     }
     
-    private func titleView()->UILabel {
+    //MARK: - Private functions
+    private func addAdditionalNavigationItemChanges() {
+        if #available(iOS 11.0, *) {
+            navigationItem.largeTitleDisplayMode = .never
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+    private func titleView() -> UILabel {
         let label = UILabel()
         label.text = "Entry Scene\n(Watch debug console for the Errors)"
         label.numberOfLines = 2
@@ -51,7 +62,6 @@ class PhoneEntryController: UIViewController,countryPickerProtocol {
         return label
     }
     
-    //MARK: - Private Functions
     private func addLocaleCountryCode() {
         if let countryCode = (Locale.current as NSLocale).object(forKey: .countryCode) as? String {
             localeCountry = countries.list.filter {($0.iso2Cc == countryCode)}.first
@@ -61,13 +71,14 @@ class PhoneEntryController: UIViewController,countryPickerProtocol {
     
     //MARK: - Button Actions
     @IBAction func didTapSendCode(_ sender: Any) {
-        if phoneTextField.text?.characters.count == 0 {
+        if phoneTextField.text?.count == 0 {
             debugPrint("Enter Phone number!")
             return
         }
         view.endEditing(true)
         let phoneNumber = "+" + (localeCountry?.e164Cc!)! + phoneTextField.text!
-        PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber) { (verificationID, error) in
+        
+        PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber, uiDelegate: nil) { (verificationID, error) in
             if let error = error {
                 debugPrint(error.localizedDescription)
                 return
@@ -86,12 +97,16 @@ class PhoneEntryController: UIViewController,countryPickerProtocol {
         navigationController?.pushViewController(listScene, animated: true)
     }
     
-    //MARK: - countryPickerProtocol functions
+}
+
+
+//MARK: - Extension| CountryPickerProtocol
+
+extension PhoneEntryController: countryPickerProtocol {
     func didPickCountry(model: Country) {
         localeCountry = model
         countryCodeTextField.text = model.iso2Cc! + " " + "(+" + model.e164Cc! + ")"
     }
-    
 }
 
 extension UIButton {

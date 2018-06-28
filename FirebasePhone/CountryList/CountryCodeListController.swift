@@ -9,15 +9,11 @@
 import UIKit
 
 protocol countryPickerProtocol {
-    func didPickCountry(model:Country)
+    func didPickCountry(model: Country)
 }
 
 class CountryCodeListController: UIViewController {
-    @IBOutlet weak var searchBar: UISearchBar! {
-        didSet {
-            searchBar.delegate = self
-        }
-    }
+    
     @IBOutlet weak var countryListTableView: UITableView! {
         didSet {
             countryListTableView.delegate = self
@@ -34,14 +30,37 @@ class CountryCodeListController: UIViewController {
     var countries:Countries?
     var filteredCountries:Countries?
     public var delegate:countryPickerProtocol?
+    lazy var searchController: UISearchController = {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        return searchController
+    }()
+    var searchBar: UISearchBar {
+        return searchController.searchBar
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "SELECT A COUNTRY"
+        addAdditionalNavigationItemChanges()
     }
+    
+    //MARK: - Private functions
+    private func addAdditionalNavigationItemChanges() {
+        if #available(iOS 11.0, *) {
+            navigationItem.largeTitleDisplayMode = .always
+            navigationController?.navigationBar.prefersLargeTitles = true
+            navigationItem.searchController = searchController
+            navigationItem.hidesSearchBarWhenScrolling = true
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+    
 }
 
-extension CountryCodeListController:UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate {
+extension CountryCodeListController:UITableViewDelegate,UITableViewDataSource {
     //MARK: - UITableView Delegates
     func numberOfSections(in tableView: UITableView) -> Int {
         var sections = 0
@@ -111,6 +130,7 @@ extension CountryCodeListController:UITableViewDelegate,UITableViewDataSource,UI
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         if searchBar.isEmpty() {
             let key = countries?.sections[indexPath.section]
             if let countries = countries?.metaData[key!] {
@@ -124,19 +144,29 @@ extension CountryCodeListController:UITableViewDelegate,UITableViewDataSource,UI
                 self.delegate?.didPickCountry(model: country)
             }
         }
-        navigationController?.popViewController(animated: true)
-    }
-    
-    //MARK: - UISearchBar Delegate
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.isEmpty {
-            countryListTableView.reloadData()
-        }else {
-            let list = countries?.list.filter { ($0.name?.hasPrefix(searchText))! || ($0.iso2Cc?.hasPrefix(searchText))! || ($0.e164Cc?.hasPrefix(searchText))!}
-            filteredCountries = Countries.init(countries: list!)
-            countryListTableView.reloadData()
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.searchController.isActive = false
+            self?.navigationItem.titleView = nil
+            self?.navigationController?.popViewController(animated: true)
         }
     }
+
+}
+
+extension CountryCodeListController: UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        if let searchText = searchController.searchBar.text, !searchText.isEmpty {
+            let list = countries?.list.filter {
+                ($0.name?.hasPrefix(searchText))! ||
+                    ($0.iso2Cc?.hasPrefix(searchText))! ||
+                    ($0.e164Cc?.hasPrefix(searchText))!}
+            filteredCountries = Countries.init(countries: list!)
+        }
+        countryListTableView.reloadData()
+    }
+    
 }
 
 extension UISearchBar {

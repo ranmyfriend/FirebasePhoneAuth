@@ -35,7 +35,7 @@ class PhoneVerificationController: UIViewController {
         view.endEditing(true)
         if let verificationCode = verificationCodeTextField.text {
             let credential = PhoneAuthProvider.provider().credential(withVerificationID: verificationID!, verificationCode: verificationCode)
-            Auth.auth().signIn(with: credential) { (user, error) in
+            Auth.auth().signInAndRetrieveData(with: credential) { (user, error) in
                 if let error = error {
                     debugPrint(error.localizedDescription)
                 }else {
