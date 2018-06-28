@@ -19,7 +19,6 @@ class AppDelegate: UIResponder {
         w.makeKeyAndVisible()
         return w
     }()
-    
 }
 
 extension AppDelegate: UIApplicationDelegate {
@@ -51,17 +50,16 @@ extension AppDelegate: UIApplicationDelegate {
     private func setupRootScene() {
         let nc = UINavigationController(rootViewController: PhoneEntryController())
         self.window?.rootViewController = nc
-        self.window?.makeKeyAndVisible()
     }
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         // Pass device token to auth.
-        let firebaseAuth = Auth.auth()
+        let auth = Auth.auth()
         
         //At development time we use .sandbox
-        firebaseAuth.setAPNSToken(deviceToken, type: AuthAPNSTokenType.sandbox)
+        auth.setAPNSToken(deviceToken, type: AuthAPNSTokenType.sandbox)
         
         //At time of production it will be set to .prod
         //        firebaseAuth.setAPNSToken(deviceToken, type: AuthAPNSTokenType.prod)
@@ -69,11 +67,10 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        let firebaseAuth = Auth.auth()
+        let auth = Auth.auth()
         
-        if (firebaseAuth.canHandleNotification(userInfo)){
+        if (auth.canHandleNotification(userInfo)){
             print(userInfo)
-            return
         }
     }
 }

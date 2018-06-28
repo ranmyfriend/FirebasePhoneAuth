@@ -18,7 +18,7 @@ class CountryCodeListController: UIViewController {
         didSet {
             countryListTableView.delegate = self
             countryListTableView.dataSource = self
-            let nib:UINib = UINib.init(nibName: CountryCodeListCell.reuseIdentifier(), bundle: nil)
+            let nib:UINib = UINib(nibName: CountryCodeListCell.reuseIdentifier(), bundle: nil)
             self.countryListTableView.register(nib, forCellReuseIdentifier: CountryCodeListCell.reuseIdentifier())
             
             self.countryListTableView.estimatedRowHeight = 70
@@ -71,7 +71,7 @@ extension CountryCodeListController:UITableViewDelegate,UITableViewDataSource {
         }
         if sections == 0 {
             let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: countryListTableView.bounds.size.width, height: countryListTableView.bounds.size.height))
-            noDataLabel.text = "No country available"
+            noDataLabel.text = "🤷‍♂️ No country available"
             noDataLabel.textColor = UIColor.black
             noDataLabel.textAlignment = .center
             countryListTableView.backgroundView  = noDataLabel

@@ -42,7 +42,7 @@
                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JRr-de-uGn">
                                     <rect key="frame" x="0.0" y="42.5" width="84" height="40"/>
                                     <connections>
-                                        <action selector="didTapShowCountryCode:" destination="-1" eventType="touchUpInside" id="mo3-Wx-12e"/>
+                                        <action selector="showCountryCode:" destination="-1" eventType="touchUpInside" id="i6u-wJ-aeh"/>
                                     </connections>
                                 </button>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Mobile Number" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="wdt-Gu-nDU">
@@ -76,7 +76,7 @@
                             <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
                             <state key="normal" title="Send Code"/>
                             <connections>
-                                <action selector="didTapSendCode:" destination="-1" eventType="touchUpInside" id="d1M-af-J2f"/>
+                                <action selector="sendCode:" destination="-1" eventType="touchUpInside" id="ySa-SF-3XP"/>
                             </connections>
                         </button>
                     </subviews>
