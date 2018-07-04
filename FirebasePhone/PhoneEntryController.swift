@@ -26,9 +26,7 @@ class PhoneEntryController: UIViewController {
             addLocaleCountryCode()
         }
     }
-    let countries:Countries = {
-        return Countries.init(countries: JSONReader.countries())
-    }()
+    let countries:Countries = JSONReader.countries()
     var localeCountry:Country?
     
     override func viewDidLoad() {

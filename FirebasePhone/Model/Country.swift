@@ -6,11 +6,92 @@
 //
 
 import Foundation
-import SwiftyJSON
+//import SwiftyJSON
 
 fileprivate let baseScalar: UInt32 = 127397
 
-public struct Country {
+struct Country: Decodable {
+    let e164_cc: String
+    let iso2_cc: String
+    let e164_sc: Int
+    let geographic: Bool
+    let level: Int
+    let name: String
+    let example: String
+    let display_name: String
+    let full_example_with_plus_sign: String?
+    let display_name_no_e164_cc: String
+    let e164_key: String
+    
+    var flag: String {
+        return iso2_cc.unicodeScalars.compactMap { String.init(UnicodeScalar(baseScalar + $0.value)!) }.joined()
+    }
+    
+}
+
+struct Countries: Decodable {
+    let countries: [Country]
+}
+
+extension Countries {
+    var sections:[String] {
+        return Array(metaData.keys)
+    }
+    var list:[Country] {
+        return metaData.map { $0.1 }
+    }
+    var metaData:[String:[Country]] {
+        countries.forEach({ (country) in
+            if let firstChar = country.name.first?.description {
+                    if metaData[firstChar] == nil {
+                        metaData[firstChar] = [country]
+                    }else {
+                        var appended = metaData[firstChar]
+                        appended?.append(country)
+                        metaData[firstChar] = appended
+                    }
+                    if self.sections.contains(firstChar) == false {
+                        self.sections.append(firstChar)
+                    }
+//                    self.list.append(country)
+                }
+            })
+//       return Dictionary(grouping: countries, by:{$0.name})
+    }
+    
+    //    var sections:[String] = []
+    //    var list:[Country] = []
+    //    var metaData:[String:[Country]] = [:]
+    //
+    //    convenience init(countries:[Country]) {
+    //        self.init()
+    //        countries.forEach({ (country) in
+    //            if let firstChar = country.name?.first?.description {
+    //                if metaData[firstChar] == nil {
+    //                    metaData[firstChar] = [country]
+    //                }else {
+    //                    var appended = metaData[firstChar]
+    //                    appended?.append(country)
+    //                    metaData[firstChar] = appended
+    //                }
+    //                if self.sections.contains(firstChar) == false {
+    //                    self.sections.append(firstChar)
+    //                }
+    //                self.list.append(country)
+    //            }
+    //        })
+    //    }
+    //
+}
+
+public extension LazyMapCollection  {
+    
+    func toArray() -> [Element]{
+        return Array(self)
+    }
+}
+
+/*public struct Country {
 
   // MARK: Declaration for string constants to be used to decode and also serialize.
   private let kCountryNameKey: String = "name"
@@ -89,4 +170,4 @@ public struct Country {
     return dictionary
   }
 
-}
+}*/
