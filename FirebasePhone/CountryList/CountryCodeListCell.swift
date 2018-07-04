@@ -13,7 +13,7 @@ class CountryCodeListCell: UITableViewCell {
     @IBOutlet weak var codeLabel: UILabel!
     @IBOutlet weak var flagLabel: UILabel!
     
-    public class func reuseIdentifier()->String {
+    class var reuseIdentifier: String {
         return "CountryCodeListCell"
     }
     public func feedCountry(info:Country) {

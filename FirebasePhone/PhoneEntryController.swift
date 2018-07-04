@@ -28,16 +28,14 @@ class PhoneEntryController: UIViewController {
         }
     }
     
-    let countries:Countries = JSONReader.countries()
-    var localeCountry:Country?
+    let countries: Countries = JSONReader.countries()!
+    var localeCountry: Country?
     
     //MARK: - Overriden functions
-
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.titleView = titleView()
         view.addTapToDismissKeyboard()
-        phoneTextField.text = "9704963170"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -66,8 +64,8 @@ class PhoneEntryController: UIViewController {
     
     private func addLocaleCountryCode() {
         if let countryCode = (Locale.current as NSLocale).object(forKey: .countryCode) as? String {
-            localeCountry = countries.list.filter {($0.iso2Cc == countryCode)}.first
-            countryCodeTextField.text = (localeCountry?.iso2Cc!)! + " " + "(+" + (localeCountry?.e164Cc!)! + ")"
+            localeCountry = countries.countries.filter {($0.iso2_cc == countryCode)}.first
+            countryCodeTextField.text = (localeCountry?.iso2_cc)! + " " + "(+" + (localeCountry?.e164_cc)! + ")"
         }
     }
     
@@ -78,7 +76,7 @@ class PhoneEntryController: UIViewController {
             return
         }
         view.endEditing(true)
-        let phoneNumber = "+" + (localeCountry?.e164Cc!)! + phoneTextField.text!
+        let phoneNumber = "+" + (localeCountry?.e164_cc)! + phoneTextField.text!
         
         PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber, uiDelegate: nil) { (verificationID, error) in
             if let error = error {
@@ -101,12 +99,11 @@ class PhoneEntryController: UIViewController {
     
 }
 
-
 //MARK: - Extension| CountryPickerProtocol
 extension PhoneEntryController: countryPickerProtocol {
     func didPickCountry(model: Country) {
         localeCountry = model
-        countryCodeTextField.text = model.iso2Cc! + " " + "(+" + model.e164Cc! + ")"
+        countryCodeTextField.text = model.iso2_cc + " " + "(+" + model.e164_cc + ")"
     }
 }
 

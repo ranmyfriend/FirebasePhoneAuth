@@ -541,7 +541,7 @@ static void callInMainThreadWithAuthDataResultAndError(
 - (void)updateEmail:(nullable NSString *)email
            password:(nullable NSString *)password
            callback:(nonnull FIRUserProfileChangeCallback)callback {
-  if (password && ![password length]){
+  if (password && ![password length]) {
     callback([FIRAuthErrorUtils weakPasswordErrorWithServerResponseReason:kMissingPasswordReason]);
     return;
   }
@@ -561,11 +561,9 @@ static void callInMainThreadWithAuthDataResultAndError(
       return;
     }
     if (email) {
-      self->_email = email;
+      self->_email = [email copy];
     }
-    if (self->_email && password) {
-      self->_anonymous = NO;
-      self->_hasEmailPasswordCredential = YES;
+    if (self->_email) {
       if (!hadEmailPasswordCredential) {
         // The list of providers need to be updated for the newly added email-password provider.
         [self internalGetTokenWithCallback:^(NSString *_Nullable accessToken,
@@ -585,6 +583,20 @@ static void callInMainThreadWithAuthDataResultAndError(
               [self signOutIfTokenIsInvalidWithError:error];
               callback(error);
               return;
+            }
+            for (FIRGetAccountInfoResponseUser *userAccountInfo in response.users) {
+              // Set the account to non-anonymous if there are any providers, even if
+              // they're not email/password ones.
+              if (userAccountInfo.providerUserInfo.count > 0) {
+                self->_anonymous = NO;
+              }
+              for (FIRGetAccountInfoResponseProviderUserInfo *providerUserInfo in
+                   userAccountInfo.providerUserInfo) {
+                if ([providerUserInfo.providerID isEqualToString:FIREmailAuthProviderID]) {
+                  self->_hasEmailPasswordCredential = YES;
+                  break;
+                }
+              }
             }
             [self updateWithGetAccountInfoResponse:response];
             if (![self updateKeychain:&error]) {
@@ -878,12 +890,14 @@ static void callInMainThreadWithAuthDataResultAndError(
     return nil;
   }
 
+  // These are dates since 00:00:00 January 1 1970, as described by the Terminology section in
+  // the JWT spec. https://tools.ietf.org/html/rfc7519
   NSDate *expDate =
-      [NSDate dateWithTimeIntervalSinceNow:[tokenPayloadDictionary[@"exp"] doubleValue]];
+      [NSDate dateWithTimeIntervalSince1970:[tokenPayloadDictionary[@"exp"] doubleValue]];
   NSDate *authDate =
-      [NSDate dateWithTimeIntervalSinceNow:[tokenPayloadDictionary[@"auth_time"] doubleValue]];
+      [NSDate dateWithTimeIntervalSince1970:[tokenPayloadDictionary[@"auth_time"] doubleValue]];
   NSDate *issuedDate =
-      [NSDate dateWithTimeIntervalSinceNow:[tokenPayloadDictionary[@"iat"] doubleValue]];
+      [NSDate dateWithTimeIntervalSince1970:[tokenPayloadDictionary[@"iat"] doubleValue]];
   FIRAuthTokenResult *result =
      [[FIRAuthTokenResult alloc] initWithToken:token
                                 expirationDate:expDate

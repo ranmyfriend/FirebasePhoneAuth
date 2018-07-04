@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol countryPickerProtocol {
+protocol countryPickerProtocol: class {
     func didPickCountry(model: Country)
 }
 
@@ -18,8 +18,8 @@ class CountryCodeListController: UIViewController {
         didSet {
             countryListTableView.delegate = self
             countryListTableView.dataSource = self
-            let nib:UINib = UINib(nibName: CountryCodeListCell.reuseIdentifier(), bundle: nil)
-            self.countryListTableView.register(nib, forCellReuseIdentifier: CountryCodeListCell.reuseIdentifier())
+            let nib:UINib = UINib(nibName: CountryCodeListCell.reuseIdentifier, bundle: nil)
+            self.countryListTableView.register(nib, forCellReuseIdentifier: CountryCodeListCell.reuseIdentifier)
             
             self.countryListTableView.estimatedRowHeight = 70
             self.countryListTableView.rowHeight = UITableViewAutomaticDimension
@@ -27,9 +27,9 @@ class CountryCodeListController: UIViewController {
         }
     }
     
-    var countries:Countries?
-    var filteredCountries:Countries?
-    public var delegate:countryPickerProtocol?
+    var countries: Countries?
+    var filteredCountries: Countries?
+    public weak var delegate: countryPickerProtocol?
     lazy var searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
@@ -60,7 +60,8 @@ class CountryCodeListController: UIViewController {
     
 }
 
-extension CountryCodeListController:UITableViewDelegate,UITableViewDataSource {
+//MARK: - Extension| UITableViewDelegate,UITableViewDataSource
+extension CountryCodeListController: UITableViewDelegate,UITableViewDataSource {
     //MARK: - UITableView Delegates
     func numberOfSections(in tableView: UITableView) -> Int {
         var sections = 0
@@ -108,7 +109,7 @@ extension CountryCodeListController:UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell:CountryCodeListCell = tableView.dequeueReusableCell(withIdentifier: CountryCodeListCell.reuseIdentifier(), for: indexPath) as! CountryCodeListCell
+        let cell: CountryCodeListCell = tableView.dequeueReusableCell(withIdentifier: CountryCodeListCell.reuseIdentifier, for: indexPath) as! CountryCodeListCell
         if searchBar.isEmpty() {
             let key = countries?.sections[indexPath.section]
             if let countries = countries?.metaData[key!] {
@@ -154,14 +155,15 @@ extension CountryCodeListController:UITableViewDelegate,UITableViewDataSource {
 
 }
 
+//MARK: - Extension | UISearchResultsUpdating
 extension CountryCodeListController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
         if let searchText = searchController.searchBar.text, !searchText.isEmpty {
-            let list = countries?.list.filter {
-                ($0.name?.hasPrefix(searchText))! ||
-                    ($0.iso2Cc?.hasPrefix(searchText))! ||
-                    ($0.e164Cc?.hasPrefix(searchText))!}
+            let list = countries?.countries.filter {
+                ($0.name.hasPrefix(searchText)) ||
+                    ($0.iso2_cc.hasPrefix(searchText)) ||
+                    ($0.e164_cc.hasPrefix(searchText))}
             filteredCountries = Countries.init(countries: list!)
         }
         countryListTableView.reloadData()
@@ -169,6 +171,7 @@ extension CountryCodeListController: UISearchResultsUpdating {
     
 }
 
+//MARK: - Extension | UISearchBar
 extension UISearchBar {
     func isEmpty()->Bool {
         return (text?.isEmpty)!
