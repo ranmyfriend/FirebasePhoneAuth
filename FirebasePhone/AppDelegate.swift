@@ -12,11 +12,23 @@ import FirebaseAuth
 import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDelegate {
+class AppDelegate: UIResponder {
+    
+    lazy var window: UIWindow? = {
+        let w = UIWindow(frame: UIScreen.main.bounds)
+        w.makeKeyAndVisible()
+        return w
+    }()
+}
 
-    var window: UIWindow?
-
+extension AppDelegate: UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        registerNotification(application)
+        setupRootScene()
+        return true
+    }
+    
+    private func registerNotification(_ application: UIApplication) {
         //Firebase
         if #available(iOS 10.0, *) {
             // For iOS 10 display notification (sent via APNS)
@@ -33,33 +45,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         
         application.registerForRemoteNotifications()
         FirebaseApp.configure()
-        
-        let nc = UINavigationController(rootViewController: PhoneEntryController())
-        self.window = UIWindow.init(frame: UIScreen.main.bounds)
-        self.window?.rootViewController = nc
-        self.window?.makeKeyAndVisible()
-        return true
     }
     
+    private func setupRootScene() {
+        let nc = UINavigationController(rootViewController: PhoneEntryController())
+        self.window?.rootViewController = nc
+    }
+}
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         // Pass device token to auth.
-        let firebaseAuth = Auth.auth()
+        let auth = Auth.auth()
         
         //At development time we use .sandbox
-        firebaseAuth.setAPNSToken(deviceToken, type: AuthAPNSTokenType.sandbox)
+        auth.setAPNSToken(deviceToken, type: AuthAPNSTokenType.sandbox)
         
         //At time of production it will be set to .prod
+        //        firebaseAuth.setAPNSToken(deviceToken, type: AuthAPNSTokenType.prod)
         
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        let firebaseAuth = Auth.auth()
+        let auth = Auth.auth()
         
-        if (firebaseAuth.canHandleNotification(userInfo)){
+        if (auth.canHandleNotification(userInfo)){
             print(userInfo)
-            return
         }
     }
-
 }
 

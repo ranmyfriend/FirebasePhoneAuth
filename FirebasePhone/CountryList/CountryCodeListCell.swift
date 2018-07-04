@@ -13,12 +13,12 @@ class CountryCodeListCell: UITableViewCell {
     @IBOutlet weak var codeLabel: UILabel!
     @IBOutlet weak var flagLabel: UILabel!
     
-    public class func reuseIdentifier()->String {
+    class var reuseIdentifier: String {
         return "CountryCodeListCell"
     }
     public func feedCountry(info:Country) {
-        self.nameLabel.text = info.displayNameNoE164Cc
-        self.codeLabel.text = info.e164Cc
+        self.nameLabel.text = info.display_name_no_e164_cc
+        self.codeLabel.text = info.e164_cc
         self.flagLabel.text = info.flag
     }
 }

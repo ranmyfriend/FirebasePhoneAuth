@@ -8,28 +8,15 @@
 
 import Foundation
 
-class Countries {
-    var sections:[String] = []
-    var list:[Country] = []
-    var metaData:[String:[Country]] = [:]
-    
-    convenience init(countries:[Country]) {
-        self.init()
-        countries.forEach({ (country) in
-            if let firstChar = country.name?.characters.first?.description {
-                if metaData[firstChar] == nil {
-                    metaData[firstChar] = [country]
-                }else {
-                    var appended = metaData[firstChar]
-                    appended?.append(country)
-                    metaData[firstChar] = appended
-                }
-                if self.sections.contains(firstChar) == false {
-                    self.sections.append(firstChar)
-                }
-                self.list.append(country)
-            }
-        })
-    }
+struct Countries: Decodable {
+    let countries: [Country]
 }
 
+extension Countries {
+    var sections: [String] {
+        return Array(metaData.keys).sorted(by: <)
+    }
+    var metaData: [String:[Country]] {
+        return Dictionary(grouping: countries, by:{String($0.name.first!)})
+    }
+}

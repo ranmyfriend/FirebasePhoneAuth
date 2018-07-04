@@ -9,8 +9,9 @@
 import UIKit
 import Firebase
 
-class PhoneEntryController: UIViewController,countryPickerProtocol {
-    
+class PhoneEntryController: UIViewController {
+
+    //MARK: - iVars
     @IBOutlet weak var sendCodeButton: UIButton!{
         didSet {
             sendCodeButton.applyBorderProperties()
@@ -26,48 +27,58 @@ class PhoneEntryController: UIViewController,countryPickerProtocol {
             addLocaleCountryCode()
         }
     }
-    let countries:Countries = {
-        return Countries.init(countries: JSONReader.countries())
-    }()
-    var localeCountry:Country?
     
+    let countries: Countries = JSONReader.countries()!
+    var localeCountry: Country?
+    
+    //MARK: - Overriden functions
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.titleView = titleView()
         view.addTapToDismissKeyboard()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         phoneTextField.becomeFirstResponder()
+        addAdditionalNavigationItemChanges()
     }
     
-    private func titleView()->UILabel {
+    //MARK: - Private functions
+    private func addAdditionalNavigationItemChanges() {
+        if #available(iOS 11.0, *) {
+            navigationItem.largeTitleDisplayMode = .never
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+    private func titleView() -> UILabel {
         let label = UILabel()
-        label.text = "Entry Scene\n(Watch debug console for the Errors)"
+        label.text = "Entry Scene\n( Watch debug console for the Errors )"
         label.numberOfLines = 2
         label.textAlignment = .center
-        label.textColor = UIColor.red
+        label.textColor = view.tintColor
         label.sizeToFit()
         return label
     }
     
-    //MARK: - Private Functions
     private func addLocaleCountryCode() {
         if let countryCode = (Locale.current as NSLocale).object(forKey: .countryCode) as? String {
-            localeCountry = countries.list.filter {($0.iso2Cc == countryCode)}.first
-            countryCodeTextField.text = (localeCountry?.iso2Cc!)! + " " + "(+" + (localeCountry?.e164Cc!)! + ")"
+            localeCountry = countries.countries.filter {($0.iso2_cc == countryCode)}.first
+            countryCodeTextField.text = (localeCountry?.iso2_cc)! + " " + "(+" + (localeCountry?.e164_cc)! + ")"
         }
     }
     
     //MARK: - Button Actions
-    @IBAction func didTapSendCode(_ sender: Any) {
-        if phoneTextField.text?.characters.count == 0 {
+    @IBAction func sendCode(_ sender: Any) {
+        if phoneTextField.text?.count == 0 {
             debugPrint("Enter Phone number!")
             return
         }
         view.endEditing(true)
-        let phoneNumber = "+" + (localeCountry?.e164Cc!)! + phoneTextField.text!
-        PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber) { (verificationID, error) in
+        let phoneNumber = "+" + (localeCountry?.e164_cc)! + phoneTextField.text!
+        
+        PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber, uiDelegate: nil) { (verificationID, error) in
             if let error = error {
                 debugPrint(error.localizedDescription)
                 return
@@ -79,19 +90,21 @@ class PhoneEntryController: UIViewController,countryPickerProtocol {
         }
     }
     
-    @IBAction func didTapShowCountryCode(_ sender: Any) {
+    @IBAction func showCountryCode(_ sender: Any) {
         let listScene = CountryCodeListController()
         listScene.delegate = self
         listScene.countries = countries
         navigationController?.pushViewController(listScene, animated: true)
     }
     
-    //MARK: - countryPickerProtocol functions
+}
+
+//MARK: - Extension| CountryPickerProtocol
+extension PhoneEntryController: countryPickerProtocol {
     func didPickCountry(model: Country) {
         localeCountry = model
-        countryCodeTextField.text = model.iso2Cc! + " " + "(+" + model.e164Cc! + ")"
+        countryCodeTextField.text = model.iso2_cc + " " + "(+" + model.e164_cc + ")"
     }
-    
 }
 
 extension UIButton {

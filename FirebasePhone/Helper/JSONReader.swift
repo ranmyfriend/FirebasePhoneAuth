@@ -9,16 +9,15 @@
 import Foundation
 
 struct JSONReader {
-    static func countries()->[Country] {
+    static func countries() -> Countries? {
         let url = Bundle.main.url(forResource: "country-codes", withExtension: "json")
         let data = try! Data.init(contentsOf: url!)
         do {
-            let wrapped = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [[String:Any]]
-            return wrapped.map({ Country.init(object: $0) })
+            return try JSONDecoder().decode(Countries.self, from: data)
         } catch {
             // Handle Error
             debugPrint(error)
-            return []
+            return nil
         }
     }
 }
