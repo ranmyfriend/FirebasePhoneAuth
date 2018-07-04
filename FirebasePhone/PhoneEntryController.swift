@@ -10,7 +10,8 @@ import UIKit
 import Firebase
 
 class PhoneEntryController: UIViewController {
-    
+
+    //MARK: - iVars
     @IBOutlet weak var sendCodeButton: UIButton!{
         didSet {
             sendCodeButton.applyBorderProperties()
@@ -26,9 +27,12 @@ class PhoneEntryController: UIViewController {
             addLocaleCountryCode()
         }
     }
+    
     let countries:Countries = JSONReader.countries()
     var localeCountry:Country?
     
+    //MARK: - Overriden functions
+
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.titleView = titleView()
@@ -52,10 +56,10 @@ class PhoneEntryController: UIViewController {
     }
     private func titleView() -> UILabel {
         let label = UILabel()
-        label.text = "Entry Scene\n(Watch debug console for the Errors)"
+        label.text = "Entry Scene\n( Watch debug console for the Errors )"
         label.numberOfLines = 2
         label.textAlignment = .center
-        label.textColor = UIColor.red
+        label.textColor = view.tintColor
         label.sizeToFit()
         return label
     }
@@ -68,7 +72,7 @@ class PhoneEntryController: UIViewController {
     }
     
     //MARK: - Button Actions
-    @IBAction func didTapSendCode(_ sender: Any) {
+    @IBAction func sendCode(_ sender: Any) {
         if phoneTextField.text?.count == 0 {
             debugPrint("Enter Phone number!")
             return
@@ -88,7 +92,7 @@ class PhoneEntryController: UIViewController {
         }
     }
     
-    @IBAction func didTapShowCountryCode(_ sender: Any) {
+    @IBAction func showCountryCode(_ sender: Any) {
         let listScene = CountryCodeListController()
         listScene.delegate = self
         listScene.countries = countries
@@ -99,7 +103,6 @@ class PhoneEntryController: UIViewController {
 
 
 //MARK: - Extension| CountryPickerProtocol
-
 extension PhoneEntryController: countryPickerProtocol {
     func didPickCountry(model: Country) {
         localeCountry = model
