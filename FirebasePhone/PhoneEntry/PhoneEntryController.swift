@@ -24,11 +24,10 @@ class PhoneEntryController: UIViewController {
             countryCodeTextField.layer.borderWidth = 1.5
             countryCodeTextField.layer.borderColor = countryCodeTextField.textColor?.cgColor
             countryCodeTextField.layer.cornerRadius = 3.0
-            addLocaleCountryCode()
         }
     }
     
-    let countries: Countries = JSONReader.countries()!
+    var countries: Countries?
     var localeCountry: Country?
     
     //MARK: - Overriden functions
@@ -36,6 +35,7 @@ class PhoneEntryController: UIViewController {
         super.viewDidLoad()
         navigationItem.titleView = titleView()
         view.addTapToDismissKeyboard()
+        loadCountries()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,6 +45,15 @@ class PhoneEntryController: UIViewController {
     }
     
     //MARK: - Private functions
+    private func loadCountries() {
+        DispatchQueue.global(qos: .background).async {
+            let _countries = JSONReader.countries()
+            DispatchQueue.main.async {
+                self.countries = _countries
+                self.addLocaleCountryCode()
+            }
+        }
+    }
     private func addAdditionalNavigationItemChanges() {
         if #available(iOS 11.0, *) {
             navigationItem.largeTitleDisplayMode = .never
@@ -64,7 +73,7 @@ class PhoneEntryController: UIViewController {
     
     private func addLocaleCountryCode() {
         if let countryCode = (Locale.current as NSLocale).object(forKey: .countryCode) as? String {
-            localeCountry = countries.countries.filter {($0.iso2_cc == countryCode)}.first
+            localeCountry = countries?.countries.filter {($0.iso2_cc == countryCode)}.first
             countryCodeTextField.text = (localeCountry?.iso2_cc)! + " " + "(+" + (localeCountry?.e164_cc)! + ")"
         }
     }
@@ -91,10 +100,13 @@ class PhoneEntryController: UIViewController {
     }
     
     @IBAction func showCountryCode(_ sender: Any) {
-        let listScene = CountryCodeListController()
-        listScene.delegate = self
-        listScene.countries = countries
-        navigationController?.pushViewController(listScene, animated: true)
+        if let countries = countries {
+            let listScene = CountryCodeListController.init(countries: countries)
+            listScene.delegate = self
+            navigationController?.pushViewController(listScene, animated: true)
+        }else {
+            debugPrint("Countries not yet loaded or failed :(")
+        }
     }
     
 }

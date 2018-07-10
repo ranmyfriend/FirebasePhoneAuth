@@ -9,40 +9,33 @@
 /* Begin PBXBuildFile section */
 		073DBEB61F90D13C001C3AC1 /* View+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073DBEB51F90D13C001C3AC1 /* View+Additions.swift */; };
 		074DE6641F55762A0046DE32 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 074DE6631F55762A0046DE32 /* GoogleService-Info.plist */; };
-		074DE6661F5590940046DE32 /* country-codes.json in Resources */ = {isa = PBXBuildFile; fileRef = 074DE6651F5590940046DE32 /* country-codes.json */; };
 		076363221F5A000300596E62 /* CountryCodeListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0763631E1F5A000300596E62 /* CountryCodeListController.swift */; };
-		076363231F5A000300596E62 /* CountryCodeListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0763631F1F5A000300596E62 /* CountryCodeListController.xib */; };
 		076363241F5A000300596E62 /* CountryCodeListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076363201F5A000300596E62 /* CountryCodeListCell.swift */; };
 		076363251F5A000300596E62 /* CountryCodeListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 076363211F5A000300596E62 /* CountryCodeListCell.xib */; };
 		076363271F5A000B00596E62 /* JSONReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076363261F5A000B00596E62 /* JSONReader.swift */; };
 		0763632A1F5A001500596E62 /* Countries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076363281F5A001500596E62 /* Countries.swift */; };
 		0763632B1F5A001500596E62 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076363291F5A001500596E62 /* Country.swift */; };
-		0763632E1F5A1E6C00596E62 /* PhoneVerificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0763632C1F5A1E6C00596E62 /* PhoneVerificationController.swift */; };
-		0763632F1F5A1E6C00596E62 /* PhoneVerificationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0763632D1F5A1E6C00596E62 /* PhoneVerificationController.xib */; };
-		076363321F5A21C400596E62 /* PhoneEntryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076363301F5A21C400596E62 /* PhoneEntryController.swift */; };
-		076363331F5A21C400596E62 /* PhoneEntryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 076363311F5A21C400596E62 /* PhoneEntryController.xib */; };
 		07EE6D381F54454D00783EE6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EE6D371F54454D00783EE6 /* AppDelegate.swift */; };
 		07EE6D3F1F54454D00783EE6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07EE6D3E1F54454D00783EE6 /* Assets.xcassets */; };
 		07EE6D421F54454D00783EE6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07EE6D401F54454D00783EE6 /* LaunchScreen.storyboard */; };
 		44098AB7FC56BFE3576D1934 /* Pods_FirebasePhone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 671750C35C6948FC23CEDBDD /* Pods_FirebasePhone.framework */; };
+		C63B8F9020F4C82500080782 /* PhoneEntryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C63B8F8C20F4C82000080782 /* PhoneEntryController.xib */; };
+		C63B8F9120F4C82500080782 /* PhoneVerificationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C63B8F8D20F4C82100080782 /* PhoneVerificationController.xib */; };
+		C63B8F9220F4C82500080782 /* PhoneVerificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63B8F8E20F4C82100080782 /* PhoneVerificationController.swift */; };
+		C63B8F9320F4C82500080782 /* PhoneEntryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63B8F8F20F4C82100080782 /* PhoneEntryController.swift */; };
+		C63B8F9520F4C83800080782 /* country-codes.json in Resources */ = {isa = PBXBuildFile; fileRef = C63B8F9420F4C83700080782 /* country-codes.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		072F34EB1F59464900B1EC29 /* FirebasePhone.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = FirebasePhone.entitlements; sourceTree = "<group>"; };
 		073DBEB51F90D13C001C3AC1 /* View+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "View+Additions.swift"; path = "Extension/View+Additions.swift"; sourceTree = "<group>"; };
 		074DE6631F55762A0046DE32 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		074DE6651F5590940046DE32 /* country-codes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "country-codes.json"; sourceTree = "<group>"; };
 		0763631E1F5A000300596E62 /* CountryCodeListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CountryCodeListController.swift; path = CountryList/CountryCodeListController.swift; sourceTree = "<group>"; };
-		0763631F1F5A000300596E62 /* CountryCodeListController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CountryCodeListController.xib; path = CountryList/CountryCodeListController.xib; sourceTree = "<group>"; };
 		076363201F5A000300596E62 /* CountryCodeListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CountryCodeListCell.swift; path = CountryList/CountryCodeListCell.swift; sourceTree = "<group>"; };
 		076363211F5A000300596E62 /* CountryCodeListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CountryCodeListCell.xib; path = CountryList/CountryCodeListCell.xib; sourceTree = "<group>"; };
 		076363261F5A000B00596E62 /* JSONReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONReader.swift; path = Helper/JSONReader.swift; sourceTree = "<group>"; };
 		076363281F5A001500596E62 /* Countries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Countries.swift; path = Model/Countries.swift; sourceTree = "<group>"; };
 		076363291F5A001500596E62 /* Country.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Country.swift; path = Model/Country.swift; sourceTree = "<group>"; };
-		0763632C1F5A1E6C00596E62 /* PhoneVerificationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneVerificationController.swift; sourceTree = "<group>"; };
-		0763632D1F5A1E6C00596E62 /* PhoneVerificationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhoneVerificationController.xib; sourceTree = "<group>"; };
-		076363301F5A21C400596E62 /* PhoneEntryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneEntryController.swift; sourceTree = "<group>"; };
-		076363311F5A21C400596E62 /* PhoneEntryController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhoneEntryController.xib; sourceTree = "<group>"; };
 		07EE6D341F54454D00783EE6 /* FirebasePhone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FirebasePhone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07EE6D371F54454D00783EE6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		07EE6D3E1F54454D00783EE6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -50,6 +43,11 @@
 		07EE6D431F54454D00783EE6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		671750C35C6948FC23CEDBDD /* Pods_FirebasePhone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FirebasePhone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A94C230CB451F2B7EAB03F0 /* Pods-FirebasePhone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FirebasePhone.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FirebasePhone/Pods-FirebasePhone.debug.xcconfig"; sourceTree = "<group>"; };
+		C63B8F8C20F4C82000080782 /* PhoneEntryController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PhoneEntryController.xib; path = PhoneEntry/PhoneEntryController.xib; sourceTree = "<group>"; };
+		C63B8F8D20F4C82100080782 /* PhoneVerificationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PhoneVerificationController.xib; path = PhoneEntry/PhoneVerificationController.xib; sourceTree = "<group>"; };
+		C63B8F8E20F4C82100080782 /* PhoneVerificationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhoneVerificationController.swift; path = PhoneEntry/PhoneVerificationController.swift; sourceTree = "<group>"; };
+		C63B8F8F20F4C82100080782 /* PhoneEntryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhoneEntryController.swift; path = PhoneEntry/PhoneEntryController.swift; sourceTree = "<group>"; };
+		C63B8F9420F4C83700080782 /* country-codes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "country-codes.json"; path = "Resources/country-codes.json"; sourceTree = "<group>"; };
 		FD123F95C2AC2FD93E719BF4 /* Pods-FirebasePhone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FirebasePhone.release.xcconfig"; path = "Pods/Target Support Files/Pods-FirebasePhone/Pods-FirebasePhone.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -87,7 +85,6 @@
 			isa = PBXGroup;
 			children = (
 				0763631E1F5A000300596E62 /* CountryCodeListController.swift */,
-				0763631F1F5A000300596E62 /* CountryCodeListController.xib */,
 				076363201F5A000300596E62 /* CountryCodeListCell.swift */,
 				076363211F5A000300596E62 /* CountryCodeListCell.xib */,
 			);
@@ -97,7 +94,6 @@
 		07EE6D2B1F54454D00783EE6 = {
 			isa = PBXGroup;
 			children = (
-				074DE6651F5590940046DE32 /* country-codes.json */,
 				074DE6631F55762A0046DE32 /* GoogleService-Info.plist */,
 				07EE6D361F54454D00783EE6 /* FirebasePhone */,
 				07EE6D351F54454D00783EE6 /* Products */,
@@ -119,10 +115,8 @@
 			children = (
 				072F34EB1F59464900B1EC29 /* FirebasePhone.entitlements */,
 				07EE6D371F54454D00783EE6 /* AppDelegate.swift */,
-				076363301F5A21C400596E62 /* PhoneEntryController.swift */,
-				076363311F5A21C400596E62 /* PhoneEntryController.xib */,
-				0763632C1F5A1E6C00596E62 /* PhoneVerificationController.swift */,
-				0763632D1F5A1E6C00596E62 /* PhoneVerificationController.xib */,
+				C63B8F8B20F4C7A100080782 /* Resources */,
+				C63B8F8A20F4C77D00080782 /* PhoneEntry */,
 				0763631D1F59FFF400596E62 /* CountryList */,
 				0763631C1F59FFF000596E62 /* Helper */,
 				0763631B1F59FFEA00596E62 /* Model */,
@@ -148,6 +142,25 @@
 				671750C35C6948FC23CEDBDD /* Pods_FirebasePhone.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C63B8F8A20F4C77D00080782 /* PhoneEntry */ = {
+			isa = PBXGroup;
+			children = (
+				C63B8F8F20F4C82100080782 /* PhoneEntryController.swift */,
+				C63B8F8C20F4C82000080782 /* PhoneEntryController.xib */,
+				C63B8F8E20F4C82100080782 /* PhoneVerificationController.swift */,
+				C63B8F8D20F4C82100080782 /* PhoneVerificationController.xib */,
+			);
+			name = PhoneEntry;
+			sourceTree = "<group>";
+		};
+		C63B8F8B20F4C7A100080782 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C63B8F9420F4C83700080782 /* country-codes.json */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,13 +235,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				076363251F5A000300596E62 /* CountryCodeListCell.xib in Resources */,
-				076363331F5A21C400596E62 /* PhoneEntryController.xib in Resources */,
-				0763632F1F5A1E6C00596E62 /* PhoneVerificationController.xib in Resources */,
+				C63B8F9120F4C82500080782 /* PhoneVerificationController.xib in Resources */,
+				C63B8F9020F4C82500080782 /* PhoneEntryController.xib in Resources */,
 				07EE6D421F54454D00783EE6 /* LaunchScreen.storyboard in Resources */,
-				074DE6661F5590940046DE32 /* country-codes.json in Resources */,
+				C63B8F9520F4C83800080782 /* country-codes.json in Resources */,
 				074DE6641F55762A0046DE32 /* GoogleService-Info.plist in Resources */,
 				07EE6D3F1F54454D00783EE6 /* Assets.xcassets in Resources */,
-				076363231F5A000300596E62 /* CountryCodeListController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,7 +294,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				076363321F5A21C400596E62 /* PhoneEntryController.swift in Sources */,
+				C63B8F9320F4C82500080782 /* PhoneEntryController.swift in Sources */,
 				0763632B1F5A001500596E62 /* Country.swift in Sources */,
 				076363271F5A000B00596E62 /* JSONReader.swift in Sources */,
 				07EE6D381F54454D00783EE6 /* AppDelegate.swift in Sources */,
@@ -290,7 +302,7 @@
 				073DBEB61F90D13C001C3AC1 /* View+Additions.swift in Sources */,
 				0763632A1F5A001500596E62 /* Countries.swift in Sources */,
 				076363241F5A000300596E62 /* CountryCodeListCell.swift in Sources */,
-				0763632E1F5A1E6C00596E62 /* PhoneVerificationController.swift in Sources */,
+				C63B8F9220F4C82500080782 /* PhoneVerificationController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

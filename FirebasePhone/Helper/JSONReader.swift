@@ -10,7 +10,7 @@ import Foundation
 
 struct JSONReader {
     static func countries() -> Countries? {
-        let url = Bundle.main.url(forResource: "country-codes", withExtension: "json")
+        let url = Bundle.main.url(forResource: "country-codes.json", withExtension: nil)
         let data = try! Data.init(contentsOf: url!)
         do {
             return try JSONDecoder().decode(Countries.self, from: data)

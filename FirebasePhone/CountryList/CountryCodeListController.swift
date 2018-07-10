@@ -14,21 +14,25 @@ protocol countryPickerProtocol: class {
 
 class CountryCodeListController: UIViewController {
     
-    @IBOutlet weak var countryListTableView: UITableView! {
-        didSet {
-            countryListTableView.delegate = self
-            countryListTableView.dataSource = self
-            let nib:UINib = UINib(nibName: CountryCodeListCell.reuseIdentifier, bundle: nil)
-            self.countryListTableView.register(nib, forCellReuseIdentifier: CountryCodeListCell.reuseIdentifier)
-            
-            self.countryListTableView.estimatedRowHeight = 70
-            self.countryListTableView.rowHeight = UITableViewAutomaticDimension
-            self.countryListTableView.keyboardDismissMode = .onDrag
-        }
-    }
+    //MARK: - iVars
+    lazy var countryListTableView: UITableView = {
+        let tableView = UITableView(frame: view.frame)
+        tableView.delegate = self
+        tableView.dataSource = self
+        let nib:UINib = UINib(nibName: CountryCodeListCell.reuseIdentifier, bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: CountryCodeListCell.reuseIdentifier)
+        
+        tableView.estimatedRowHeight = 70
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.keyboardDismissMode = .onDrag
+        tableView.separatorStyle = .none
+
+        return tableView
+    }()
     
-    var countries: Countries?
-    var filteredCountries: Countries?
+    let countries: Countries
+    var filteredCountries: Countries = Countries(countries: [])
+    
     public weak var delegate: countryPickerProtocol?
     lazy var searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
@@ -40,10 +44,31 @@ class CountryCodeListController: UIViewController {
         return searchController.searchBar
     }
     
+    lazy var noDataLabel: UILabel = {
+        let label: UILabel = UILabel()
+        label.text = "🤷‍♂️ No country available"
+        label.textColor = UIColor.black
+        label.textAlignment = .center
+        label.center = countryListTableView.center
+        label.sizeToFit()
+        return label
+    }()
+    
+    //MARK: - Overriden functions
+    init(countries: Countries) {
+        self.countries = countries
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "SELECT A COUNTRY"
         addAdditionalNavigationItemChanges()
+        view.addSubview(countryListTableView)
     }
     
     //MARK: - Private functions
@@ -64,62 +89,53 @@ class CountryCodeListController: UIViewController {
 extension CountryCodeListController: UITableViewDelegate,UITableViewDataSource {
     //MARK: - UITableView Delegates
     func numberOfSections(in tableView: UITableView) -> Int {
-        var sections = 0
-        if searchBar.isEmpty() {
-            sections = countries?.sections.count ?? 0
-        }else {
-            sections = filteredCountries?.sections.count ?? 0
-        }
-        if sections == 0 {
-            let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: countryListTableView.bounds.size.width, height: countryListTableView.bounds.size.height))
-            noDataLabel.text = "🤷‍♂️ No country available"
-            noDataLabel.textColor = UIColor.black
-            noDataLabel.textAlignment = .center
-            countryListTableView.backgroundView  = noDataLabel
-        }else {
+        if searchBar.isEmpty() && !countries.sections.isEmpty {
             countryListTableView.backgroundView = nil
+            return countries.sections.count
+        }else {
+            countryListTableView.backgroundView  = noDataLabel
+            return filteredCountries.sections.count
         }
-        return sections
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if searchBar.isEmpty() {
-            let key = countries?.sections[section]
-            return countries?.metaData[key!]?.count ?? 0
+            let key = countries.sections[section]
+            return countries.metaData[key]?.count ?? 0
         }else{
-            let key = filteredCountries?.sections[section]
-            return filteredCountries?.metaData[key!]?.count ?? 0
+            let key = filteredCountries.sections[section]
+            return filteredCountries.metaData[key]?.count ?? 0
         }
     }
     
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         if searchBar.isEmpty() {
-            return countries?.sections
+            return countries.sections
         }else{
-            return filteredCountries?.sections
+            return filteredCountries.sections
         }
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if searchBar.isEmpty() {
-            return countries?.sections[section]
+            return countries.sections[section]
         }else {
-            return filteredCountries?.sections[section]
+            return filteredCountries.sections[section]
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: CountryCodeListCell = tableView.dequeueReusableCell(withIdentifier: CountryCodeListCell.reuseIdentifier, for: indexPath) as! CountryCodeListCell
         if searchBar.isEmpty() {
-            let key = countries?.sections[indexPath.section]
-            if let countries = countries?.metaData[key!] {
-                let country:Country = countries[indexPath.row]
+            let sectionKey = countries.sections[indexPath.section]
+            if let countries = countries.metaData[sectionKey] {
+                let country: Country = countries[indexPath.row]
                 cell.feedCountry(info: country)
             }
         }else {
-            let key = filteredCountries?.sections[indexPath.section]
-            if let countries = filteredCountries?.metaData[key!] {
-                let country:Country = countries[indexPath.row]
+            let sectionKey = filteredCountries.sections[indexPath.section]
+            if let countries = filteredCountries.metaData[sectionKey] {
+                let country: Country = countries[indexPath.row]
                 cell.feedCountry(info: country)
             }
         }
@@ -133,14 +149,14 @@ extension CountryCodeListController: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if searchBar.isEmpty() {
-            let key = countries?.sections[indexPath.section]
-            if let countries = countries?.metaData[key!] {
+            let sectionKey = countries.sections[indexPath.section]
+            if let countries = countries.metaData[sectionKey] {
                 let country:Country = countries[indexPath.row]
                 self.delegate?.didPickCountry(model: country)
             }
         }else {
-            let key = filteredCountries?.sections[indexPath.section]
-            if let countries = filteredCountries?.metaData[key!] {
+            let sectionKey = filteredCountries.sections[indexPath.section]
+            if let countries = filteredCountries.metaData[sectionKey] {
                 let country:Country = countries[indexPath.row]
                 self.delegate?.didPickCountry(model: country)
             }
@@ -159,12 +175,14 @@ extension CountryCodeListController: UITableViewDelegate,UITableViewDataSource {
 extension CountryCodeListController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
-        if let searchText = searchController.searchBar.text, !searchText.isEmpty {
-            let list = countries?.countries.filter {
+        if let searchText = searchController.searchBar.text,
+            !searchText.isEmpty {
+            let list = countries.countries.filter {
                 ($0.name.hasPrefix(searchText)) ||
-                    ($0.iso2_cc.hasPrefix(searchText)) ||
-                    ($0.e164_cc.hasPrefix(searchText))}
-            filteredCountries = Countries.init(countries: list!)
+                ($0.iso2_cc.hasPrefix(searchText)) ||
+                ($0.e164_cc.hasPrefix(searchText))
+            }
+            filteredCountries = Countries(countries: list)
         }
         countryListTableView.reloadData()
     }
@@ -173,7 +191,7 @@ extension CountryCodeListController: UISearchResultsUpdating {
 
 //MARK: - Extension | UISearchBar
 extension UISearchBar {
-    func isEmpty()->Bool {
+    func isEmpty() -> Bool {
         return (text?.isEmpty)!
     }
 }
