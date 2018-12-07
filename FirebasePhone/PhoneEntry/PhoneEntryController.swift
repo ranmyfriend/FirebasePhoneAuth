@@ -46,10 +46,9 @@ class PhoneEntryController: UIViewController {
     
     //MARK: - Private functions
     private func loadCountries() {
-        DispatchQueue.global(qos: .background).async {
-            let _countries = JSONReader.countries()
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.countries = JSONReader.countries()
             DispatchQueue.main.async {
-                self.countries = _countries
                 self.addLocaleCountryCode()
             }
         }

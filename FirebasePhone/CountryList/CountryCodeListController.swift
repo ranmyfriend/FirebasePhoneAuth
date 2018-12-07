@@ -23,7 +23,7 @@ class CountryCodeListController: UIViewController {
         tableView.register(nib, forCellReuseIdentifier: CountryCodeListCell.reuseIdentifier)
         
         tableView.estimatedRowHeight = 70
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.keyboardDismissMode = .onDrag
         tableView.separatorStyle = .none
 
@@ -143,7 +143,7 @@ extension CountryCodeListController: UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
+        return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
