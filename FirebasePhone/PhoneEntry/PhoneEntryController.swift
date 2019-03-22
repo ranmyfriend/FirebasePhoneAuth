@@ -80,7 +80,7 @@ class PhoneEntryController: UIViewController {
     //MARK: - Button Actions
     @IBAction func sendCode(_ sender: Any) {
         if phoneTextField.text?.count == 0 {
-            debugPrint("Enter Phone number!")
+            debugPrint("Enter your Phone number!")
             return
         }
         view.endEditing(true)
