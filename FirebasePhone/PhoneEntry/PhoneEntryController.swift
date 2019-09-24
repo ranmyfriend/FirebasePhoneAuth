@@ -20,7 +20,7 @@ class PhoneEntryController: UIViewController {
     @IBOutlet weak var phoneTextField: UITextField!
     @IBOutlet weak var countryCodeTextField: UITextField! {
         didSet {
-            countryCodeTextField.textColor = UIView().tintColor
+            countryCodeTextField.textColor = UIColor.systemBlue
             countryCodeTextField.layer.borderWidth = 1.5
             countryCodeTextField.layer.borderColor = countryCodeTextField.textColor?.cgColor
             countryCodeTextField.layer.cornerRadius = 3.0
@@ -65,7 +65,7 @@ class PhoneEntryController: UIViewController {
         label.text = "Entry Scene\n( Watch debug console for the Errors )"
         label.numberOfLines = 2
         label.textAlignment = .center
-        label.textColor = view.tintColor
+        label.textColor = UIColor.systemPink
         label.sizeToFit()
         return label
     }
@@ -110,7 +110,7 @@ class PhoneEntryController: UIViewController {
     
 }
 
-//MARK: - Extension| CountryPickerProtocol
+//MARK: - Extension | CountryPickerProtocol
 extension PhoneEntryController: countryPickerProtocol {
     func didPickCountry(model: Country) {
         localeCountry = model
