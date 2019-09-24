@@ -89,11 +89,15 @@ class CountryCodeListController: UIViewController {
 extension CountryCodeListController: UITableViewDelegate,UITableViewDataSource {
     //MARK: - UITableView Delegates
     func numberOfSections(in tableView: UITableView) -> Int {
-        if searchBar.isEmpty() && !countries.sections.isEmpty {
+        if searchBar.isEmpty() {
             countryListTableView.backgroundView = nil
             return countries.sections.count
         }else {
-            countryListTableView.backgroundView  = noDataLabel
+            if filteredCountries.sections.isEmpty {
+                countryListTableView.backgroundView  = noDataLabel
+            }else {
+                countryListTableView.backgroundView = nil
+            }
             return filteredCountries.sections.count
         }
     }
