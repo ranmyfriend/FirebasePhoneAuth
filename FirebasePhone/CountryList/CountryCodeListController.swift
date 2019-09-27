@@ -26,12 +26,11 @@ class CountryCodeListController: UIViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.keyboardDismissMode = .onDrag
         tableView.separatorStyle = .none
-
+        
         return tableView
     }()
     
-    let countries: Countries
-    var filteredCountries: Countries = Countries(countries: [])
+    let countryListViewModel: CountryListViewModel
     
     public weak var delegate: countryPickerProtocol?
     lazy var searchController: UISearchController = {
@@ -40,10 +39,7 @@ class CountryCodeListController: UIViewController {
         searchController.dimsBackgroundDuringPresentation = false
         return searchController
     }()
-    var searchBar: UISearchBar {
-        return searchController.searchBar
-    }
-    
+
     lazy var noDataLabel: UILabel = {
         let label: UILabel = UILabel()
         label.text = "🤷‍♂️ No country available"
@@ -55,8 +51,9 @@ class CountryCodeListController: UIViewController {
     }()
     
     //MARK: - Overriden functions
-    init(countries: Countries) {
-        self.countries = countries
+    init(countries: [Country]) {
+        let countries = countries.map({CountryViewModel(country: $0)})
+        self.countryListViewModel = CountryListViewModel(countries: countries)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -69,6 +66,13 @@ class CountryCodeListController: UIViewController {
         title = "SELECT A COUNTRY"
         addAdditionalNavigationItemChanges()
         view.addSubview(countryListTableView)
+        viewModelSetup()
+    }
+    
+    private func viewModelSetup() {
+        self.countryListViewModel.isSearchEnabled.bindAndFire { _ in
+            self.countryListTableView.reloadData()
+        }
     }
     
     //MARK: - Private functions
@@ -87,61 +91,33 @@ class CountryCodeListController: UIViewController {
 
 //MARK: - Extension| UITableViewDelegate,UITableViewDataSource
 extension CountryCodeListController: UITableViewDelegate,UITableViewDataSource {
-    //MARK: - UITableView Delegates
+
     func numberOfSections(in tableView: UITableView) -> Int {
-        if searchBar.isEmpty() {
+        let count = countryListViewModel.numberOfSections()
+        if count > 0 {
             countryListTableView.backgroundView = nil
-            return countries.sections.count
         }else {
-            if filteredCountries.sections.isEmpty {
-                countryListTableView.backgroundView  = noDataLabel
-            }else {
-                countryListTableView.backgroundView = nil
-            }
-            return filteredCountries.sections.count
+            countryListTableView.backgroundView = noDataLabel
         }
+        return count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if searchBar.isEmpty() {
-            let key = countries.sections[section]
-            return countries.metaData[key]?.count ?? 0
-        }else{
-            let key = filteredCountries.sections[section]
-            return filteredCountries.metaData[key]?.count ?? 0
-        }
+        return countryListViewModel.tableView(numberOfRowsInSection: section)
     }
     
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        if searchBar.isEmpty() {
-            return countries.sections
-        }else{
-            return filteredCountries.sections
-        }
+        return countryListViewModel.sectionIndexTitles()
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if searchBar.isEmpty() {
-            return countries.sections[section]
-        }else {
-            return filteredCountries.sections[section]
-        }
+        return countryListViewModel.tableView(titleForHeaderInSection: section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: CountryCodeListCell = tableView.dequeueReusableCell(withIdentifier: CountryCodeListCell.reuseIdentifier, for: indexPath) as! CountryCodeListCell
-        if searchBar.isEmpty() {
-            let sectionKey = countries.sections[indexPath.section]
-            if let countries = countries.metaData[sectionKey] {
-                let country: Country = countries[indexPath.row]
-                cell.feedCountry(info: country)
-            }
-        }else {
-            let sectionKey = filteredCountries.sections[indexPath.section]
-            if let countries = filteredCountries.metaData[sectionKey] {
-                let country: Country = countries[indexPath.row]
-                cell.feedCountry(info: country)
-            }
+        if let country = countryListViewModel.tableView(cellForRowAt: indexPath) {
+            cell.feedCountry(info: country)
         }
         return cell
     }
@@ -151,52 +127,20 @@ extension CountryCodeListController: UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        if searchBar.isEmpty() {
-            let sectionKey = countries.sections[indexPath.section]
-            if let countries = countries.metaData[sectionKey] {
-                let country:Country = countries[indexPath.row]
-                self.delegate?.didPickCountry(model: country)
-            }
-        }else {
-            let sectionKey = filteredCountries.sections[indexPath.section]
-            if let countries = filteredCountries.metaData[sectionKey] {
-                let country:Country = countries[indexPath.row]
-                self.delegate?.didPickCountry(model: country)
-            }
+        if let country = self.countryListViewModel.tableView(didSelectRowAt: indexPath) {
+            self.delegate?.didPickCountry(model: country.country)
         }
-        
-        DispatchQueue.main.async { [weak self] in
-            self?.searchController.isActive = false
-            self?.navigationItem.titleView = nil
-            self?.navigationController?.popViewController(animated: true)
-        }
+        self.navigationController?.popViewController(animated: true)
     }
-
+    
 }
 
 //MARK: - Extension | UISearchResultsUpdating
 extension CountryCodeListController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
-        if let searchText = searchController.searchBar.text,
-            !searchText.isEmpty {
-            let list = countries.countries.filter {
-                ($0.name.hasPrefix(searchText)) ||
-                ($0.iso2_cc.hasPrefix(searchText)) ||
-                ($0.e164_cc.hasPrefix(searchText))
-            }
-            filteredCountries = Countries(countries: list)
-        }
-        countryListTableView.reloadData()
+        self.countryListViewModel.searchTxt.value = searchController.searchBar.text!
+        self.countryListViewModel.updateSearchState()
     }
     
 }
-
-//MARK: - Extension | UISearchBar
-extension UISearchBar {
-    func isEmpty() -> Bool {
-        return (text?.isEmpty)!
-    }
-}
-

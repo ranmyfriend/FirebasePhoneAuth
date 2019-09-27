@@ -8,16 +8,21 @@
 
 import Foundation
 
+enum JSONError: Error {
+    case noValidURL
+    case noValidJSON
+}
+
 struct JSONReader {
-    static func countries() -> Countries? {
-        let url = Bundle.main.url(forResource: "country-codes.json", withExtension: nil)
-        let data = try! Data.init(contentsOf: url!)
+    static func countries() throws -> Countries {
+        guard let url = Bundle.main.url(forResource: "country-codes.json", withExtension: nil) else {
+            throw JSONError.noValidURL
+        }
         do {
+            let data = try Data(contentsOf: url)
             return try JSONDecoder().decode(Countries.self, from: data)
         } catch {
-            // Handle Error
-            debugPrint(error)
-            return nil
+            throw JSONError.noValidJSON
         }
     }
 }

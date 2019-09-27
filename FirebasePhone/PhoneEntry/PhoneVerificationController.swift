@@ -16,7 +16,9 @@ class PhoneVerificationController: UIViewController {
             verifyButton.applyBorderProperties()
         }
     }
-    var verificationID:String?
+    var verificationID:String!
+    let viewModel = PhoneVerifyViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Enter your 6 digit code"
@@ -26,7 +28,7 @@ class PhoneVerificationController: UIViewController {
         super.viewWillAppear(animated)
         verificationCodeTextField.becomeFirstResponder()
     }
-   
+    
     @IBAction func didTapVerifyFourDigitCode(_ sender: Any) {
         if verificationCodeTextField.text?.isEmpty == true {
             debugPrint("Enter your verification code!")
@@ -34,15 +36,12 @@ class PhoneVerificationController: UIViewController {
         }
         view.endEditing(true)
         if let verificationCode = verificationCodeTextField.text {
-            let credential = PhoneAuthProvider.provider().credential(withVerificationID: verificationID!, verificationCode: verificationCode)
-            Auth.auth().signIn(with: credential) { (result, error) in
-                if let error = error {
-                    debugPrint(error.localizedDescription)
-                }else {
-                    debugPrint("Verified successfully")
-                    //Once you have verified your phone number kill the firebase session.
-                    try? Auth.auth().signOut()
-                    self.navigationController?.popViewController(animated: true)
+            viewModel.verifyDigitCode(code: verificationCode, vId: verificationID) { (result) in
+                switch result {
+                    case .success(_ ):
+                        self.navigationController?.popViewController(animated: true)
+                    case .failure(let e):
+                        debugPrint(e.localizedDescription)
                 }
             }
         }

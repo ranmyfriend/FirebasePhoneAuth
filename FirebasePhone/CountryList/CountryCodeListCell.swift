@@ -16,9 +16,9 @@ class CountryCodeListCell: UITableViewCell {
     class var reuseIdentifier: String {
         return "CountryCodeListCell"
     }
-    public func feedCountry(info: Country) {
-        self.nameLabel.text = info.display_name_no_e164_cc
-        self.codeLabel.text = info.e164_cc
-        self.flagLabel.text = info.flag
+    public func feedCountry(info: CountryViewModel) {
+        self.nameLabel.text = info.country.display_name_no_e164_cc
+        self.codeLabel.text = info.country.e164_cc
+        self.flagLabel.text = info.country.flag
     }
 }
