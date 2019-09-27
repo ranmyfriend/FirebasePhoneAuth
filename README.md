@@ -1,5 +1,5 @@
 # FirebasePhoneAuth
-This is simple Firebase Phone Authentication using Swift 4. Here you can pick different set of country code from Country code List controller. Initially the Entry screen will show you the country code based on your Device-Locale.  
+This is simple Firebase Phone Authentication using Swift 5. Here you can pick different set of country code from Country code List controller. Initially the Entry screen will show you the country code based on your Device-Locale.  
 (i) Entry Scene (ii) Verify 6 Digit code Scene(Pretty straight forward)
 
 ## Country List Picker
