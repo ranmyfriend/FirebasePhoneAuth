@@ -14,7 +14,7 @@ protocol countryPickerProtocol: class {
 
 class CountryCodeListController: UIViewController {
     
-    //MARK: iVars
+    // MARK:- iVars
     lazy var countryListTableView: UITableView = {
         let tableView = UITableView(frame: view.frame)
         tableView.delegate = self
@@ -50,7 +50,7 @@ class CountryCodeListController: UIViewController {
         return label
     }()
     
-    //MARK: Overriden functions
+    // MARK:- Overriden functions
     init(countries: [Country]) {
         let countries = countries.map({CountryViewModel(country: $0)})
         self.countryListViewModel = CountryListViewModel(countries: countries)
@@ -75,7 +75,7 @@ class CountryCodeListController: UIViewController {
         }
     }
     
-    //MARK: Private functions
+    // MARK:- Private functions
     private func addAdditionalNavigationItemChanges() {
         if #available(iOS 11.0, *) {
             navigationItem.largeTitleDisplayMode = .always
@@ -89,7 +89,7 @@ class CountryCodeListController: UIViewController {
     
 }
 
-//MARK: UITableViewDelegate,UITableViewDataSource
+// MARK:- UITableViewDelegate,UITableViewDataSource
 extension CountryCodeListController: UITableViewDelegate,UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -137,7 +137,7 @@ extension CountryCodeListController: UITableViewDelegate,UITableViewDataSource {
     
 }
 
-//MARK: Extension | UISearchResultsUpdating
+// MARK:- Extension | UISearchResultsUpdating
 extension CountryCodeListController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
