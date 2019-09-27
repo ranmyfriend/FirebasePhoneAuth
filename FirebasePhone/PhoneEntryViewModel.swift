@@ -17,7 +17,7 @@ struct PhoneEntryViewModel {
     init() {
         do {
             self.countries = try JSONReader.countries()
-        }catch let e {
+        } catch let e {
             debugPrint("Error:\(e.localizedDescription)")
         }
         self.setDeviceLocale()
@@ -34,8 +34,8 @@ extension PhoneEntryViewModel {
         self.countryCodeTxt.value = (localeCountry?.iso2_cc)! + " " + "(+" + (localeCountry?.e164_cc)! + ")"
     }
     
-    func sendCode(to: String, completionHandler: @escaping (Result<String,Error>)->Void) {
-        let phoneNumber = "+" + (localeCountry?.e164_cc)! + to
+    func send(code: String, completionHandler: @escaping (Result<String,Error>) -> Void) {
+        let phoneNumber = "+" + (localeCountry?.e164_cc)! + code
         PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber, uiDelegate: nil) { (verificationID, error) in
             if let error = error {
                 return completionHandler(.failure(error))

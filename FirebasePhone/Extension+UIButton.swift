@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 extension UIButton {
+    
     func applyBorderProperties() {
         layer.borderWidth = 1.5
         layer.borderColor = tintColor?.cgColor

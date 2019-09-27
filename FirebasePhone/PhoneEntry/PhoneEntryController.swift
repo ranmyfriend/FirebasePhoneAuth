@@ -10,8 +10,8 @@ import UIKit
 
 class PhoneEntryController: UIViewController {
     
-    //MARK: - iVars
-    @IBOutlet weak var sendCodeButton: UIButton!{
+    //MARK: iVars
+    @IBOutlet weak var sendCodeButton: UIButton! {
         didSet {
             sendCodeButton.applyBorderProperties()
         }
@@ -35,7 +35,7 @@ class PhoneEntryController: UIViewController {
     
     var viewModel = PhoneEntryViewModel()
     
-    //MARK: - Overriden functions
+    //MARK: Overriden functions
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.titleView = titleView
@@ -56,7 +56,7 @@ class PhoneEntryController: UIViewController {
         addAdditionalNavigationItemChanges()
     }
     
-    //MARK: - Private functions
+    //MARK: Private functions
     private func addAdditionalNavigationItemChanges() {
         if #available(iOS 11.0, *) {
             navigationItem.largeTitleDisplayMode = .never
@@ -65,14 +65,14 @@ class PhoneEntryController: UIViewController {
         }
     }
     
-    //MARK: - Button Actions
+    //MARK: Button Actions
     @IBAction func sendCode(_ sender: Any) {
         guard let phone = phoneTextField.text else {
             debugPrint("Enter your Phone number!")
             return
         }
         view.endEditing(true)
-        self.viewModel.sendCode(to: phone) { (result) in
+        self.viewModel.send(code: phone) { (result) in
             switch result {
                 case .success(let vID):
                     let verifyScene = PhoneVerificationController()
@@ -89,14 +89,14 @@ class PhoneEntryController: UIViewController {
             let listScene = CountryCodeListController(countries: countries.countries)
             listScene.delegate = self
             navigationController?.pushViewController(listScene, animated: true)
-        }else {
+        } else {
             debugPrint("Countries not yet loaded or failed :(")
         }
     }
     
 }
 
-//MARK: - Extension | CountryPickerProtocol
+//MARK: Extension | CountryPickerProtocol
 extension PhoneEntryController: countryPickerProtocol {
     func didPickCountry(model: Country) {
         viewModel.localeCountry = model

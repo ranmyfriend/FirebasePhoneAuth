@@ -20,7 +20,7 @@ class CountryListViewModel {
     }
 }
 
-//TableView Delegate & Datasource methods
+//MARK: TableView Delegate & Datasource methods
 extension CountryListViewModel {
     func numberOfSections() -> Int {
         if isSearchEnabled.value {
@@ -73,13 +73,13 @@ extension CountryListViewModel {
     
 }
 
-// custom getters & setters
+//MARK: custom getters & setters
 extension CountryListViewModel {
     var sections: [String] {
         return Array(metaData.keys).sorted(by: <)
     }
     var metaData: [String: [CountryViewModel]] {
-        return Dictionary(grouping: countries, by:{String($0.country.name.first!)})
+        return getMetaData(countries: countries)
     }
 }
 
@@ -88,12 +88,16 @@ extension CountryListViewModel {
         return Array(fmetaData.keys).sorted(by: <)
     }
     var fmetaData: [String: [CountryViewModel]] {
-        return Dictionary(grouping: filteredCountries, by:{String($0.country.name.first!)})
+        return getMetaData(countries: filteredCountries)
     }
+    
+    private func getMetaData(countries:[CountryViewModel]) -> [String: [CountryViewModel]] {
+        return Dictionary(grouping: countries, by: {String($0.country.name.first!)})
+    }
+    
 }
 
-
-//plain old functions
+//MARK: Plain old functions
 extension CountryListViewModel {
     
     func updateSearchState() {

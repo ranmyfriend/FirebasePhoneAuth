@@ -22,7 +22,10 @@ class AppDelegate: UIResponder {
 }
 
 extension AppDelegate: UIApplicationDelegate {
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+    ) -> Bool {
         registerNotification(application)
         setupRootScene()
         return true
@@ -54,7 +57,10 @@ extension AppDelegate: UIApplicationDelegate {
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
-    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+    func application(
+        _ application: UIApplication,
+        didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
+    ) {
         // Pass device token to auth.
         let auth = Auth.auth()
         
@@ -66,10 +72,13 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         
     }
     
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+    func application(
+        _ application: UIApplication,
+        didReceiveRemoteNotification userInfo: [AnyHashable : Any],
+        fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void
+    ) {
         let auth = Auth.auth()
-        
-        if (auth.canHandleNotification(userInfo)){
+        if (auth.canHandleNotification(userInfo)) {
             print(userInfo)
         }
     }

@@ -17,6 +17,6 @@ extension Countries {
         return Array(metaData.keys).sorted(by: <)
     }
     var metaData: [String: [Country]] {
-        return Dictionary(grouping: countries, by:{String($0.name.first!)})
+        return Dictionary(grouping: countries, by: { String($0.name.first!) })
     }
 }

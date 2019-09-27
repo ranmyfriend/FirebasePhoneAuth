@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 extension UITextField {
+    
     func applyBorderProperties() {
         textColor = UIColor.systemBlue
         layer.borderWidth = 1.5

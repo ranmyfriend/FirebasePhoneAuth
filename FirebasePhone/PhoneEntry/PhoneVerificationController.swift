@@ -30,19 +30,14 @@ class PhoneVerificationController: UIViewController {
     }
     
     @IBAction func didTapVerifyFourDigitCode(_ sender: Any) {
-        if verificationCodeTextField.text?.isEmpty == true {
-            debugPrint("Enter your verification code!")
-            return
-        }
         view.endEditing(true)
-        if let verificationCode = verificationCodeTextField.text {
-            viewModel.verifyDigitCode(code: verificationCode, vId: verificationID) { (result) in
-                switch result {
-                    case .success(_ ):
-                        self.navigationController?.popViewController(animated: true)
-                    case .failure(let e):
-                        debugPrint(e.localizedDescription)
-                }
+        guard let verificationCode = verificationCodeTextField.text else{fatalError("verfication code is must.")}
+        viewModel.verifyDigitCode(code: verificationCode, vId: verificationID) { (result) in
+            switch result {
+                case .success(_ ):
+                    self.navigationController?.popViewController(animated: true)
+                case .failure(let e):
+                    debugPrint(e.localizedDescription)
             }
         }
     }
