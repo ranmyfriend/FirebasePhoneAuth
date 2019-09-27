@@ -104,8 +104,8 @@ extension CountryListViewModel {
         if !searchTxt.value.isEmpty {
             let list = countries.filter {
                 ($0.country.name.hasPrefix(searchTxt.value)) ||
-                    ($0.country.iso2_cc.hasPrefix(searchTxt.value)) ||
-                    ($0.country.e164_cc.hasPrefix(searchTxt.value))
+                    ($0.country.iso2cc.hasPrefix(searchTxt.value)) ||
+                    ($0.country.e164cc.hasPrefix(searchTxt.value))
             }
             self.filteredCountries = list
             isSearchEnabled.value = true

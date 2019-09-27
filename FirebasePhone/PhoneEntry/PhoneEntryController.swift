@@ -10,7 +10,7 @@ import UIKit
 
 class PhoneEntryController: UIViewController {
     
-    //MARK: iVars
+    // MARK:- iVars
     @IBOutlet weak var sendCodeButton: UIButton! {
         didSet {
             sendCodeButton.applyBorderProperties()
@@ -35,7 +35,7 @@ class PhoneEntryController: UIViewController {
     
     var viewModel = PhoneEntryViewModel()
     
-    //MARK: Overriden functions
+    // MARK:- Overriden functions
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.titleView = titleView
@@ -56,7 +56,7 @@ class PhoneEntryController: UIViewController {
         addAdditionalNavigationItemChanges()
     }
     
-    //MARK: Private functions
+    // MARK:- Private functions
     private func addAdditionalNavigationItemChanges() {
         if #available(iOS 11.0, *) {
             navigationItem.largeTitleDisplayMode = .never
@@ -65,7 +65,7 @@ class PhoneEntryController: UIViewController {
         }
     }
     
-    //MARK: Button Actions
+    // MARK:- Button Actions
     @IBAction func sendCode(_ sender: Any) {
         guard let phone = phoneTextField.text else {
             debugPrint("Enter your Phone number!")
@@ -96,10 +96,10 @@ class PhoneEntryController: UIViewController {
     
 }
 
-//MARK: Extension | CountryPickerProtocol
+// MARK:- Extension | CountryPickerProtocol
 extension PhoneEntryController: countryPickerProtocol {
     func didPickCountry(model: Country) {
         viewModel.localeCountry = model
-        countryCodeTextField.text = model.iso2_cc + " " + "(+" + model.e164_cc + ")"
+        countryCodeTextField.text = model.iso2cc + " " + "(+" + model.e164cc + ")"
     }
 }

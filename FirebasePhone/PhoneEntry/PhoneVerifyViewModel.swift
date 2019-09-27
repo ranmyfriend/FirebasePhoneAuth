@@ -15,11 +15,9 @@ struct PhoneVerifyViewModel {
         let phoneAuthProvider = PhoneAuthProvider.provider()
         let credential = phoneAuthProvider.credential(withVerificationID: vId, verificationCode: code)
         Auth.auth().signIn(with: credential) { (result, error) in
-            if let error = error {
-                completionHandler(.failure(error))
+            if let err = error {
+                completionHandler(.failure(err))
             }else {
-                debugPrint("Verified successfully")
-                //Once you have verified your phone number kill the firebase session.
                 try? Auth.auth().signOut()
                 completionHandler(.success(true))
             }

@@ -16,7 +16,7 @@ class PhoneVerificationController: UIViewController {
             verifyButton.applyBorderProperties()
         }
     }
-    var verificationID:String!
+    var verificationID: String!
     let viewModel = PhoneVerifyViewModel()
     
     override func viewDidLoad() {
@@ -31,15 +31,14 @@ class PhoneVerificationController: UIViewController {
     
     @IBAction func didTapVerifyFourDigitCode(_ sender: Any) {
         view.endEditing(true)
-        guard let verificationCode = verificationCodeTextField.text else{fatalError("verfication code is must.")}
+        guard let verificationCode = verificationCodeTextField.text else{ fatalError("verfication code is must.") }
         viewModel.verifyDigitCode(code: verificationCode, vId: verificationID) { (result) in
             switch result {
-                case .success(_ ):
+                case .success(_):
                     self.navigationController?.popViewController(animated: true)
-                case .failure(let e):
-                    debugPrint(e.localizedDescription)
+                case .failure(let err):
+                    debugPrint(err.localizedDescription)
             }
         }
     }
-    
 }
