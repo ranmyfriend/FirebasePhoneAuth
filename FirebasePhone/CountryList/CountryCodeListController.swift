@@ -17,9 +17,9 @@ class CountryCodeListController: UIViewController {
     // MARK:- iVars
     lazy var countryListTableView: UITableView = {
         let tableView = UITableView(frame: view.frame)
-        tableView.delegate = self
-        tableView.dataSource = self
-        let nib:UINib = UINib(nibName: CountryCodeListCell.reuseIdentifier, bundle: nil)
+        tableView.delegate = datasource
+        tableView.dataSource = datasource
+        let nib: UINib = UINib(nibName: CountryCodeListCell.reuseIdentifier, bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: CountryCodeListCell.reuseIdentifier)
         
         tableView.estimatedRowHeight = 70
@@ -31,6 +31,7 @@ class CountryCodeListController: UIViewController {
     }()
     
     let countryListViewModel: CountryListViewModel
+    let datasource: CountryCodeListDataSource
     
     public weak var delegate: countryPickerProtocol?
     lazy var searchController: UISearchController = {
@@ -39,7 +40,7 @@ class CountryCodeListController: UIViewController {
         searchController.dimsBackgroundDuringPresentation = false
         return searchController
     }()
-
+    
     lazy var noDataLabel: UILabel = {
         let label: UILabel = UILabel()
         label.text = "🤷‍♂️ No country available"
@@ -52,8 +53,9 @@ class CountryCodeListController: UIViewController {
     
     // MARK:- Overriden functions
     init(countries: [Country]) {
-        let countries = countries.map({CountryViewModel(country: $0)})
+        let countries = countries.map({ CountryViewModel(country: $0) })
         self.countryListViewModel = CountryListViewModel(countries: countries)
+        self.datasource = CountryCodeListDataSource(countryListViewModel: self.countryListViewModel)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -67,11 +69,28 @@ class CountryCodeListController: UIViewController {
         addAdditionalNavigationItemChanges()
         view.addSubview(countryListTableView)
         viewModelSetup()
+        
+        dataSourceSetup()
     }
     
     private func viewModelSetup() {
         self.countryListViewModel.isSearchEnabled.bindAndFire { _ in
             self.countryListTableView.reloadData()
+        }
+    }
+    
+    private func dataSourceSetup() {
+        self.datasource.isCountryAvailable = { enabled in
+            if !enabled {
+                self.countryListTableView.backgroundView = nil
+            }else {
+                self.countryListTableView.backgroundView = self.noDataLabel
+            }
+        }
+        
+        self.datasource.didSelectCounty = { country in
+            self.delegate?.didPickCountry(model: country.country)
+            self.navigationController?.popViewController(animated: true)
         }
     }
     
@@ -85,54 +104,6 @@ class CountryCodeListController: UIViewController {
         } else {
             // Fallback on earlier versions
         }
-    }
-    
-}
-
-// MARK:- UITableViewDelegate,UITableViewDataSource
-extension CountryCodeListController: UITableViewDelegate,UITableViewDataSource {
-
-    func numberOfSections(in tableView: UITableView) -> Int {
-        let count = countryListViewModel.numberOfSections()
-        if count > 0 {
-            countryListTableView.backgroundView = nil
-        } else {
-            countryListTableView.backgroundView = noDataLabel
-        }
-        return count
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return countryListViewModel.tableView(numberOfRowsInSection: section)
-    }
-    
-    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        return countryListViewModel.sectionIndexTitles()
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return countryListViewModel.tableView(titleForHeaderInSection: section)
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell: CountryCodeListCell = tableView.dequeueReusableCell(
-            withIdentifier: CountryCodeListCell.reuseIdentifier, for: indexPath) as? CountryCodeListCell
-            else {fatalError("Use CountryCodeListCell")}
-        if let country = countryListViewModel.tableView(cellForRowAt: indexPath) {
-            cell.feedCountry(info: country)
-        }
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let country = self.countryListViewModel.tableView(didSelectRowAt: indexPath) {
-            self.delegate?.didPickCountry(model: country.country)
-        }
-        self.navigationController?.popViewController(animated: true)
     }
     
 }

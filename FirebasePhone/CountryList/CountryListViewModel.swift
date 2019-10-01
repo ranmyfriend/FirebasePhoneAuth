@@ -9,90 +9,50 @@
 import Foundation
 
 class CountryListViewModel {
-    let countries:[CountryViewModel]
+    let countries: [CountryViewModel]
     var filteredCountries: [CountryViewModel] = []
     
     var searchTxt = Dynamic<String>("")
     var isSearchEnabled = Dynamic<Bool>(false)
     
-    init(countries:[CountryViewModel]) {
+    init(countries: [CountryViewModel]) {
         self.countries = countries
     }
 }
 
-//MARK: TableView Delegate & Datasource methods
+//MARK: Datasource methods
 extension CountryListViewModel {
-    func numberOfSections() -> Int {
-        if isSearchEnabled.value {
-            return fsections.count
-        }else {
-            return sections.count
-        }
+    
+    func numberOfRowsInSection(_ section: Int) -> Int{
+        let key = sections[section]
+        return metaData[key]?.count ?? 0
     }
     
-    func tableView(numberOfRowsInSection section: Int) -> Int{
-        if isSearchEnabled.value {
-            let key = fsections[section]
-            return fmetaData[key]?.count ?? 0
-        }else {
-            let key = sections[section]
-            return metaData[key]?.count ?? 0
-        }
+    func titleForHeaderInSection(_ section: Int) -> String? {
+        return sections[section]
     }
     
-    func sectionIndexTitles() -> [String]? {
-        if isSearchEnabled.value {
-            return fsections
-        }else {
-            return sections
-        }
-    }
-    
-    func tableView(titleForHeaderInSection section: Int) -> String? {
-        if isSearchEnabled.value {
-            return fsections[section]
-        }else {
-            return sections[section]
-        }
-    }
-    func tableView(cellForRowAt indexPath: IndexPath) -> CountryViewModel? {
-        if isSearchEnabled.value {
-            let sectionKey = fsections[indexPath.section]
-            let countries = fmetaData[sectionKey]
-            return countries?[indexPath.row]
-        }else {
-            let sectionKey = sections[indexPath.section]
-            let countries = metaData[sectionKey]
-            return countries?[indexPath.row]
-        }
-    }
-    
-    func tableView(didSelectRowAt indexPath: IndexPath) -> CountryViewModel? {
-        return tableView(cellForRowAt: indexPath)
+    func countryOnRowIndexPath(_ indexPath: IndexPath) -> CountryViewModel? {
+        let sectionKey = sections[indexPath.section]
+        let countries = metaData[sectionKey]
+        return countries?[indexPath.row]
     }
     
 }
 
 //MARK: custom getters & setters
 extension CountryListViewModel {
+    
+    fileprivate var countryArray: [CountryViewModel] {
+        return isSearchEnabled.value ? filteredCountries : countries
+    }
+    
     var sections: [String] {
         return Array(metaData.keys).sorted(by: <)
     }
-    var metaData: [String: [CountryViewModel]] {
-        return getMetaData(countries: countries)
-    }
-}
-
-extension CountryListViewModel {
-    var fsections: [String] {
-        return Array(fmetaData.keys).sorted(by: <)
-    }
-    var fmetaData: [String: [CountryViewModel]] {
-        return getMetaData(countries: filteredCountries)
-    }
     
-    private func getMetaData(countries:[CountryViewModel]) -> [String: [CountryViewModel]] {
-        return Dictionary(grouping: countries, by: {String($0.country.name.first!)})
+    fileprivate var metaData: [String: [CountryViewModel]] {
+        return Dictionary(grouping: countryArray, by: {String($0.country.name.first!)})
     }
     
 }

@@ -69,7 +69,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         
         //At time of production it will be set to .prod
         //        firebaseAuth.setAPNSToken(deviceToken, type: AuthAPNSTokenType.prod)
-        
     }
     
     func application(
@@ -78,7 +77,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void
     ) {
         let auth = Auth.auth()
-        if (auth.canHandleNotification(userInfo)) {
+        if auth.canHandleNotification(userInfo) {
             print(userInfo)
         }
     }
