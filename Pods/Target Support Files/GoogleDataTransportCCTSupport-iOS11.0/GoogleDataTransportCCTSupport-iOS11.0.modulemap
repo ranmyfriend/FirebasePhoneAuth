@@ -1,0 +1,6 @@
+framework module GoogleDataTransportCCTSupport {
+  umbrella header "GoogleDataTransportCCTSupport-iOS11.0-umbrella.h"
+
+  export *
+  module * { export * }
+}

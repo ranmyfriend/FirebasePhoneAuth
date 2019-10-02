@@ -12,8 +12,7 @@ import Firebase
 struct PhoneVerifyViewModel {
     
     func verifyDigitCode(code: String, vId: String, completionHandler: @escaping (Result<Bool,Error>)->Void) {
-        let phoneAuthProvider = PhoneAuthProvider.provider()
-        let credential = phoneAuthProvider.credential(withVerificationID: vId, verificationCode: code)
+        let credential = PhoneAuthProvider.provider().credential(withVerificationID: vId, verificationCode: code)
         Auth.auth().signIn(with: credential) { (result, error) in
             if let err = error {
                 completionHandler(.failure(err))

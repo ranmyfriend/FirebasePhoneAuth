@@ -10,7 +10,7 @@ target 'FirebasePhone' do
   pods
 end
 
-#target 'FirebasePhoneTests' do
-#  inherit! :search_paths
-#  pods
-#end
+target 'FirebasePhoneTests' do
+  inherit! :search_paths
+  pods
+end

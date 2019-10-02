@@ -7,6 +7,7 @@
 //
 
 import XCTest
+
 @testable import FirebasePhone
 
 class FirebasePhoneTests: XCTestCase {
